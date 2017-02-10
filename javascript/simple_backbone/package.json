@@ -1,0 +1,50 @@
+{
+  "name": "coding-example-003",
+  "version": "1.0.0",
+  "homepage": "https://coding-exercise-003.surge.sh",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/just3ws/coding-exercise-003.git"
+  },
+  "scripts": {
+    "build": "webpack",
+    "build:auto": "npm run build -- --watch",
+    "checks": "esw src/**/*.js",
+    "checks:auto": "npm run checks -- --watch",
+    "checks:fix": "npm run checks -- --fix",
+    "clean": "mkdir -p dist && rm -rf dist/**/*.* && mkdir -p _site/js && rm -rf _site/js/**/*.*",
+    "compile": "babel --out-dir dist/ src/",
+    "compile:auto": "npm run compile -- --watch",
+    "postpublish": "npm run :prod",
+    "precompile": "npm run clean",
+    "prepublish": "npm run compile",
+    "prespec": "npm run compile",
+    "publish": "surge --project _site",
+    "spec": "mocha --opts ./src/specs/mocha.opts",
+    "spec:auto": "npm run spec -- --watch --reporter min --bail",
+    "spec:inspector": "node-inspector",
+    "start": "browser-sync start --files=_site/** --server _site"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-core": "^6.22.1",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-plugin-transform-remove-console": "^6.8.0",
+    "babel-preset-latest": "^6.22.0",
+    "babel-register": "^6.22.0",
+    "browser-sync": "^2.18.7",
+    "eslint": "^3.15.0",
+    "eslint-loader": "^1.6.1",
+    "eslint-watch": "^2.1.14",
+    "jsdom": "^9.10.0",
+    "mocha": "^3.2.0",
+    "mocha-jsdom": "^1.1.0",
+    "mocha-webpack": "^0.7.0",
+    "node-inspector": "^0.7.5",
+    "source-map-support": "^0.4.11",
+    "webpack": "^2.2.1",
+    "webpack-eslint-plugin": "^1.2.0"
+  }
+}

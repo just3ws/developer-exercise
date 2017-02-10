@@ -1,0 +1,27 @@
+{
+  "ecmaVersion": 6,
+  "libs": [
+    "ecma6",
+    "browser",
+    "jquery",
+    "underscore"
+  ],
+  "plugins": {
+    "node": {},
+    "es_modules": {},
+    "doc_comment": {
+      "fullDocs": true,
+      "strong": true
+    },
+    "complete_strings": {
+      "maxLength": 16
+    }
+  },
+  "loadEagerly": [
+    "src/js/**/*.js"
+  ],
+  "dontLoad": [
+    "node_modules/**",
+    "_site/js/**"
+  ]
+}
