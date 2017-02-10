@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+
+    <title>Coding Exercise #3 - Simple Backbone.js List</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Boogaloo|Open+Sans:300" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/application.css">
+
+    <script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js" integrity="sha256-SzKOQsVYGX1bmddyfPzGC6yXY/rWYGUSMOi6+T9gZ+0= sha384-6sX2meY/CpvrIkapLDMX4YWD1KIOwS4OREKOl43Vkdt5cGwDslb+/6zSTGWmn5oq sha512-c2h4K/PN8OFjpm7r4Y+a10axJm1XrrK0HP3EhMGBTgK6RJY3bdiQNGwFIDs9uohgWtQ/+fRhTi3v8iYvHVriRg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone.js" integrity="sha256-JN0u7081AU4SZiikD1KKHSSBk/BNVFiTE95qK++aB6Y= sha384-AtTt7af95IyE/wZ7oOtgRvPMBHnFtQk1zo3OOk3WygHi46BCdDCtPGqXDcSxcpCb sha512-E244hIL8HKAnPhF82C93fM9wgXqHSyGWyjnJzAq65H65gu7MWjWrSagW2tyHO0XfB6Vif3Kb8fRHFFw06Psdlg==" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <a href="https://github.com/just3ws/coding-exercise-003/tree/master/javascript/simple_backbone"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+    <nav class="quotes"></nav>
+    <section class="quotes">Sourcing quotes ...</section>
+  </body>
+
+  <script type="text/template" id="quote-paginator-template">
+    <div class="filter">
+      <b>Filter:</b>
+      <% if (filter == "") { %>
+        <strong>ALL</strong>
+        <% } else { %>
+        <a href="/?page=1">all</a>
+        <% } %>
+
+      <% if (filter == "movies") { %>
+        <strong>MOVIES</strong>
+        <% } else { %>
+        <a href="/#movies?page=1">movies</a>
+        <% } %>
+
+      <% if (filter == "games") { %>
+        <strong>GAMES</strong>
+        <% } else { %>
+        <a href="/#games?page=1">games</a>
+        <% } %>
+    </div>
+
+    <div class="paginator">
+      <% if (current > 1) { %>
+        <a href="/<%= (filter == "") ? '' : `#${filter}` %>?page=<%= current - 1 %>" class="previous">Previous</a>
+        <% } %>
+
+      <div class="pages"><%= current %> of <%= pages %></div>
+
+      <% if (current < pages) { %>
+        <a href="/<%= (filter == "") ? '' : `#${filter}` %>?page=<%= current + 1 %>" class="next">Next</a>
+        <% } %>
+    </div>
+  </script>
+
+  <script type="text/template" id="quote-template">
+    <article class="quote <%= theme %>" id="<%= key %>">
+      <blockquote>
+        <p class="text"><%= quote %></p>
+        <footer>— <span class="source"><%= source %></span> in <cite class="context"><%= context %></cite></footer>
+      </blockquote>
+    </article>
+  </script>
+
+  <script type="text/template" id="quotes-template">
+    <% collection.forEach(quote => { %> <%= quote %> <% })  %>
+  </script>
+
+  <script src="/javascripts/application.js"></script>
+</html>

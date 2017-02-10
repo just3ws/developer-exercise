@@ -1,0 +1,56 @@
+section.quotes {
+  width: 600px;
+  margin: 0 auto;
+}
+
+nav.quotes {
+  postion: relative;
+  width: 600px;
+  margin: 0 auto;
+}
+
+nav.quotes .filter {
+  display: inline-block;
+}
+
+nav.quotes .filter * {
+  display: inline;
+}
+
+nav.quotes .paginator {
+  float: right;
+  display: inline-block;
+}
+
+nav.quotes .paginator * {
+  display: inline;
+}
+
+article.quote {
+  position: relative;
+  display: inline;
+}
+
+article.quote blockquote {
+  margin: 1em auto 2em;
+  padding-left: 1em;
+}
+
+article.quote.games blockquote {
+  border-left: 0.25em solid #c2272d;
+}
+
+article.quote.movies blockquote {
+  border-left: 0.25em solid #1d3068;
+}
+
+article.quote blockquote p {
+  display: inline-block;
+  font-family: 'Boogaloo', cursive;
+  font-size: 1.5em;
+}
+
+article.quote blockquote footer {
+  display: block;
+  font-family: 'Open Sans', sans-serif;
+}
