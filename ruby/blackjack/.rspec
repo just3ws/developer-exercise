@@ -1,0 +1,5 @@
+--color
+--format Fuubar
+--require awesome_print
+--require pry
+--require spec_helper

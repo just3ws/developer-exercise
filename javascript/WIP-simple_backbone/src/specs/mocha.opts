@@ -1,0 +1,10 @@
+--debug-brk
+--require babel-polyfill
+--compilers js:babel-core/register
+--require ./src/specs/spec_helper.js
+--recursive
+--reporter spec 
+--use_strict
+--es-staging
+--colors
+./src/specs/**/*.spec.js
