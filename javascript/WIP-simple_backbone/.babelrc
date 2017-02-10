@@ -1,0 +1,20 @@
+{
+  "presets": ["latest"],
+  "ignore": [          
+    "node_modules/**", 
+    "_site/js/**"
+  ],
+  "env": {
+    "development": {
+      "sourceMap": "inline"
+    },
+    "production": {
+      "comments": false,
+      "compact": "auto",
+      "minified": true,
+      "plugins": [
+        "transform-remove-console"
+      ]
+    }
+  }
+}
