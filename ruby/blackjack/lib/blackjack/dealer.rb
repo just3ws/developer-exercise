@@ -4,6 +4,7 @@ require 'forwardable'
 require 'ostruct'
 
 require_relative '../shoe'
+require_relative '../shuffling_device'
 require_relative 'hand'
 require_relative 'strategies/dealer_strategy'
 

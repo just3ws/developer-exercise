@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# require_relative '../../../log'
+
 module Blackjack
   class Session
     PHASES = [%i(
@@ -26,13 +28,18 @@ module Blackjack
       @dealer.deal_upcard_to(@dealer)
 
       @boxes.each do |player|
+        Log.to.debug { player.for_log }
         @dealer.deal_upcard_to(player)
       end
 
       @dealer.deal_downcard_to(@dealer)
 
       @boxes.each do |player|
-        loop do
+        Log.to.debug { player.for_log }
+
+        22.times do |i|
+          raise 'INCONCEIVABLE!' if i >= 21
+
           break if player.stand?
 
           @dealer.deal_upcard_to(player) if player.hit?
@@ -53,7 +60,9 @@ module Blackjack
     def dealer
       @dealer.hole_card.upcard!
 
-      loop do
+      22.times do |i|
+        raise 'INCONCEIVABLE!' if i >= 21
+
         break if @dealer.stand?
 
         @dealer.deal_upcard_to(@dealer) if @dealer.hit?

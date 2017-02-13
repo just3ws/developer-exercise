@@ -26,5 +26,9 @@ module Blackjack
     def_delegators :@hand, :bust?
     def_delegators :@hand, :blackjack?
     def_delegators :@hand, :dealt
+
+    def for_log
+      "PLAYER: #{hand.for_log}"
+    end
   end
 end

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../log'
+
 module Blackjack
   class Table
     attr_reader :boxes

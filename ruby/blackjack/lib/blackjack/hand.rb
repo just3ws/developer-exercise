@@ -55,5 +55,9 @@ module Blackjack
     end
 
     def_delegators :@cards, :count
+
+    def for_log
+      "[Hand count=#{cards.count} (#{cards.map(&:for_log).join(') (')})]"
+    end
   end
 end

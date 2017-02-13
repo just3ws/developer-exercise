@@ -31,4 +31,8 @@ class Card
     return 'A' if name == :ace
     rank.to_s
   end
+
+  def for_log
+    "#{@name.to_s.capitalize} of #{@suit.to_s.capitalize}"
+  end
 end
