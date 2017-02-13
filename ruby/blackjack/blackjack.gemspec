@@ -30,10 +30,10 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler', '~> 1.14'
-  spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'rake', '~> 12.0'
   spec.add_development_dependency 'rubocop', '~> 0.47.1'
   spec.add_development_dependency 'rspec', '~> 3.5.0'
-  spec.add_development_dependency 'fuubar', '~> 2.1.0'
+  spec.add_development_dependency 'fuubar', '~> 2.2.0'
   spec.add_development_dependency 'awesome_print', '~> 1.7.0'
   spec.add_development_dependency 'guard-rspec', '~> 4.7.3'
   spec.add_development_dependency 'pry', '~> 0.10.4'
