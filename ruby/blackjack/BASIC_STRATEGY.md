@@ -4,9 +4,8 @@
 
 Columns
 
-1. Hand type
-2. Hand pattern
-3. Dealer upcard value
+1. Hand pattern
+2. Dealer upcard value
 
 ## Pairs Patterns
 
