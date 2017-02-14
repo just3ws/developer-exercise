@@ -8,10 +8,8 @@ class Game
   end
 
   def run
-    ap game.as_json
-
-    binding.pry
-    puts
+    LOG.debug('Game#run'.red)
+    LOG.debug(game.as_json.to_s.light_yellow)
 
     Phases::PlayersPhase.new(game: game).run
   end

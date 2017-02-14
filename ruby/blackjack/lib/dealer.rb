@@ -32,7 +32,7 @@ class Dealer
     {
       dealer: {
         upcard: upcard&.as_json
-      }
+      }.merge(hand.as_json)
     }
   end
 end

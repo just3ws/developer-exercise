@@ -40,5 +40,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'awesome_print', '~> 1.7.0'
   spec.add_development_dependency 'guard-rspec', '~> 4.7.3'
   spec.add_development_dependency 'pry', '~> 0.10.4'
+  spec.add_development_dependency 'byebug', '~> 9.0.6'
   spec.add_development_dependency 'pry-byebug', '~> 3.4.2'
+  spec.add_development_dependency 'warning', '~> 0.10.0'
+  spec.add_development_dependency 'colorize', '~> 0.8.1'
 end

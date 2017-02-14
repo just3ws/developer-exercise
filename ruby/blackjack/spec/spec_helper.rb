@@ -1,8 +1,25 @@
 # frozen_string_literal: true
-require 'awesome_print'
-require 'pry'
+
+require 'colorize'
+
+# String.colors
+# String.modes
+# String.color_samples
+
+require 'warning'
+Warning.ignore(:fixnum)
 
 require 'blackjack'
+
+log_file = open('log/test.log', File::WRONLY | File::APPEND | File::CREAT).tap do |f|
+  f.sync = true
+end
+
+Blackjack.logger = Logger.new(log_file).tap do |log|
+  log.progname = '[T]'.blue
+end
+
+LOG = Blackjack.logger
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -18,5 +35,4 @@ RSpec.configure do |config|
   config.warnings = false
 
   config.order = :random
-  Kernel.srand config.seed
 end

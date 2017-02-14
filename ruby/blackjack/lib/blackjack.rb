@@ -1,10 +1,21 @@
 # frozen_string_literal: true
 
-require 'awesome_print'
 require 'pry'
+require 'logger'
+require 'awesome_print'
+require 'awesome_print/core_ext/logger'
+
+class << self
+  attr_accessor :logger
+end
 
 module Blackjack
+  class << self
+    attr_accessor :logger
+  end
 end
+
+LOG = Blackjack.logger
 
 require 'card'
 require 'deck'

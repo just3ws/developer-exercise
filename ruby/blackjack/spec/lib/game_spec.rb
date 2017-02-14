@@ -15,9 +15,6 @@ RSpec.fdescribe Game do
       fit 'should be ready' do
         table.run
 
-
-
-
         # expect { table.run }
         # .to change { table.dealer.active? }.from(false).to(true)
       end

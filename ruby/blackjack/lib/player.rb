@@ -10,8 +10,6 @@ class Player
   end
 
   def decide
-    puts
-
     raise NotImplementedError
   end
 
@@ -52,8 +50,7 @@ class Player
     {
       player: {
         tally: tally
-      }
-        .merge(hand.as_json)
+      }.merge(hand.as_json)
     }
   end
 end

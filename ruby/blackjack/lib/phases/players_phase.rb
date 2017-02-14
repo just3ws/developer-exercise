@@ -9,6 +9,8 @@ module Phases
     end
 
     def run
+      LOG.debug('Phase::PlayersPhase#run'.red)
+
       deal_an_upcard_to_each_player
 
       deal_an_upcard_to_the_dealer
@@ -59,12 +61,15 @@ module Phases
     end
 
     def deal_an_upcard_to_each_player
+      LOG.debug('#deal_an_upcard_to_each_player'.red)
       game.boxes.each do |player|
         deal_upcard_to(player)
       end
     end
 
     def deal_upcard_to(player)
+      LOG.debug('#deal_upcard_to =>'.red)
+      LOG.debug(player.as_json.to_s.yellow)
       game.dealer.deal_upcard_to(player)
     end
 
