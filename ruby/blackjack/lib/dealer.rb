@@ -1,10 +1,56 @@
 # frozen_string_literal: true
 
 class Dealer
-  attr_accessor :hand
+  attr_accessor :hand, :state, :game, :decisions
 
   def initialize
     @hand = Hand.new
+    @state = :unknown
+    @decisions = []
+    @done = false
+  end
+
+  def done?
+    @done
+  end
+
+  def decide
+    decision = if hand.soft? && hand.point_total <= 17
+                 :hit
+               elsif hand.hard? && hand.point_total <= 11
+                 :hit
+               else
+                 @done = true
+                 :stand
+               end
+
+    decisions.push({ decision: decision, done?: done? }.merge(hand.as_json))
+
+    decision
+  end
+
+  def won?
+    @state.equal?(:won)
+  end
+
+  def lost?
+    @state.equal?(:lost)
+  end
+
+  def draw?
+    @state.equal?(:tied)
+  end
+
+  def win!
+    @state = :won
+  end
+
+  def lose!
+    @state = :lost
+  end
+
+  def push!
+    @state = :tied
   end
 
   def deal_upcard_to(player)

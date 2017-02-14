@@ -30,4 +30,5 @@ require 'strategies/dealer_strategy'
 
 require 'player'
 require 'phases/players_phase'
+require 'phases/dealers_phase'
 require 'strategies/basic_strategy'

@@ -12,7 +12,6 @@ module Phases
       deal_an_upcard_to_each_player
       deal_an_upcard_to_the_dealer
       deal_an_upcard_to_each_player
-      deal_a_downcard_to_the_dealer
 
       LOG.info("Dealer upcard is #{game.dealer.upcard.for_humans}")
 
@@ -61,12 +60,6 @@ module Phases
       end
     end
 
-    def player_decision
-      return :stand if player.stand?
-      return :hit if player.hit?
-      raise
-    end
-
     def deal_an_upcard_to_each_player
       game.boxes.each do |player|
         deal_upcard_to(player)
@@ -79,10 +72,6 @@ module Phases
 
     def deal_an_upcard_to_the_dealer
       game.dealer.deal_upcard_to(game.dealer)
-    end
-
-    def deal_a_downcard_to_the_dealer
-      game.dealer.deal_downcard_to(game.dealer)
     end
   end
 end
