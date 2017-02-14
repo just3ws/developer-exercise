@@ -1,56 +1,75 @@
 # frozen_string_literal: true
 
 class Player
-  attr_accessor :hand, :action, :tally
+  attr_accessor :hand, :state, :game, :decisions
 
   def initialize
     @hand = Hand.new
-    @tally = 0
-    @action = nil
+    @state = :undefined
+    @decisions = []
+    @done = false
+  end
+
+  def done?
+    @done
   end
 
   def decide
-    raise NotImplementedError
-  end
+    decision = if hand.soft? && hand.point_total < 17
+                 :hit
+               elsif hand.hard? && hand.point_total <= 11
+                 :hit
+               else
+                 @done = true
+                 :stand
+               end
 
-  def holding
-    raise NotImplementedError
+    decisions.push({ decision: decision, done?: done? }.merge(hand.as_json))
+
+    decision
   end
 
   def won?
-    @tally.equal?(1)
+    @state.equal?(:won)
   end
 
   def lost?
-    @tally.equal?(-1)
+    @state.equal?(:lost)
   end
 
   def draw?
-    @tally.equal?(0)
+    @state.equal?(:tied)
   end
 
   def win!
-    @tally = 1
+    @state = :won
   end
 
   def lose!
-    @tally = -1
+    @state = :lost
   end
 
-  def draw!
-    @tally = 0
+  def push!
+    @state = :tied
   end
 
   def enter(game:)
     @game = game
-    @game.accept(player: self)
+    game.accept(player: self)
   end
 
   def as_json
+    dealer_upcard = if game.nil?
+                      {}
+                    else
+                      { game: { dealer: { upcard: game&.dealer&.upcard&.as_json } } }
+                     end
     {
       player: {
-        tally: tally
+        state: state,
+        decisions: decisions
       }.merge(hand.as_json)
+        .merge(dealer_upcard)
     }
   end
 end

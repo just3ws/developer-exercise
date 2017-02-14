@@ -19,24 +19,50 @@ module Phases
 
       deal_a_downcard_to_the_dealer
 
-      game.boxes.each do |player|
-        22.times do |i|
-          raise 'INCONCEIVABLE!' if i >= 21
+      LOG.info("Dealer upcard is #{game.dealer.upcard.for_humans}")
 
-          case player.decide
-          when :stand then break
-          when :hit then deal_upcard_to(player)
+      game.boxes.each_with_index do |player, i|
+        i += 1
+        LOG.info("Beginning turn for Player #{i}")
+
+        22.times do |turn_guard|
+          raise 'INCONCEIVABLE!' if turn_guard >= 21
+
+          LOG.info("Player #{i} holding #{player.hand.soft? ? 'Soft' : 'Hard'} #{player.hand.point_total} consisting of #{player.hand.cards.map(&:for_humans).join(', ')}")
+
+          decision = player.decide
+          case decision
+          when :stand
+            LOG.info("Player #{i} has decided to #{'STAND'.colorize(color: :blue)}")
+          when :hit
+            LOG.info("Player #{i} has decided to #{'HIT'.colorize(color: :red)}")
+            deal_upcard_to(player)
           end
 
-          case player.tally
+          case player.state
           when :blackjack
             player.win!
           when :bust
             player.lose!
           end
 
-          break if player.done?
+          if player.hand.bust?
+            LOG.info("Player #{i} has #{player.state} by going bust")
+          elsif player.hand.natural?
+            LOG.info("Player #{i} has #{player.state} with natural")
+          elsif player.hand.blackjack?
+            LOG.info("Player #{i} has #{player.state} by hitting #{player.hand.point_total}")
+          else
+            LOG.info("Player #{i} has #{player.hand.point_total} in hand so their win/lose/draw is #{player.state}")
+          end
+
+          if player.done?
+            LOG.info("Player #{i} is done with their turn holding #{player.hand.soft? ? 'Soft' : 'Hard'} #{player.hand.point_total} consisting of #{player.hand.cards.map(&:for_humans).join(', ')}")
+            break
+          end
         end
+
+        LOG.info("End of turn for Player #{i}")
       end
     end
 

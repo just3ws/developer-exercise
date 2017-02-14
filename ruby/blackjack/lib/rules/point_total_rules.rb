@@ -10,7 +10,7 @@ module Rules
     end
 
     def suggest
-      LOG.debug("CHECKING #{self.class.name.split('::').last} => ")
+      LOG.here(self)
       suggestion = if hit? then :hit if hit?
                    elsif stand? then :stand if stand?
                    else :indeterminate

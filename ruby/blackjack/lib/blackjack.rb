@@ -15,8 +15,6 @@ module Blackjack
   end
 end
 
-LOG ||= Blackjack.logger
-
 require 'card'
 require 'deck'
 require 'shoe'

@@ -29,6 +29,10 @@ class Card
     rank.to_s.rjust(2, '0')
   end
 
+  def for_humans
+    "#{name.capitalize} of #{suit.capitalize}"
+  end
+
   def as_json
     {
       card: {
