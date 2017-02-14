@@ -26,7 +26,7 @@ end
 LOG = Blackjack.logger
 
 def LOG.here(instance, separator: '#')
-  info("#{instance.class.name.colorize(color: :light_blue)}#{separator}#{caller[0][/`.*'/][1..-2].colorize(color: :green)}".colorize(background: :black))
+  debug("#{instance.class.name.colorize(color: :light_blue)}#{separator}#{caller[0][/`.*'/][1..-2].colorize(color: :green)}".colorize(background: :black))
 end
 
 def LOG.graph_for(graphable)

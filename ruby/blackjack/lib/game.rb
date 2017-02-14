@@ -8,9 +8,8 @@ class Game
   end
 
   def run
-    LOG.here(self)
-    LOG.graph_for(game)
-
+    LOG.info("Beginning game with #{game.boxes.count} player(s)")
     Phases::PlayersPhase.new(game: game).run
+    LOG.info("End of game with #{game.boxes.count} player(s)")
   end
 end

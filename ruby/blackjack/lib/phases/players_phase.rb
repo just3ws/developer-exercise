@@ -49,11 +49,13 @@ module Phases
             LOG.info("Player #{i} has #{player.hand.point_total} in hand so their win/lose/draw is #{player.state}")
           end
 
-          if player.done?
-            LOG.info("Player #{i} is done with their turn holding #{player.hand.description}")
-            break
-          end
+          next unless player.done?
+          LOG.info("Player #{i} is done with their turn holding #{player.hand.description}")
+
+          break
         end
+
+        LOG.graph_for(player)
 
         LOG.info("End of turn for Player #{i}")
       end
