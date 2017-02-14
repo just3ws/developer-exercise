@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'logger'
 require 'awesome_print'
 require 'awesome_print/core_ext/logger'

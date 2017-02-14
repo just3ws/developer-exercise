@@ -2,12 +2,6 @@
 
 require_relative 'card'
 
-# TODO: Decks/Cards shouldn't really know what their values are at this point.
-#       A standard deck of cards can be defined here but should be decorated
-#       somewhere by the game.
-#
-#       ex. Blackjack face cards are 10 and Ace is conditional with no Joker.
-
 class DeckOfCards
   SUITS = %i(hearts diamonds spades clubs).freeze
   NAME_RANKS = {

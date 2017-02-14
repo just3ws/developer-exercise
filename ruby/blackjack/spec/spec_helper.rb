@@ -9,8 +9,6 @@ RSpec.configure do |config|
     mocks.verify_partial_doubles = true
   end
 
-  config.filter_run_when_matching :focus
-
   config.disable_monkey_patching!
 
   config.warnings = false

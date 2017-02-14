@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative '../../../lib/blackjack/table'
 require_relative '../../../lib/blackjack/dealer'
 require_relative '../../../lib/blackjack/player'
+require_relative '../../../lib/blackjack/table'
 
 module Blackjack
   RSpec.describe Table do

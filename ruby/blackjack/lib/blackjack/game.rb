@@ -4,7 +4,7 @@
 require_relative 'phases/players_phase'
 
 module Blackjack
-  class Session
+  class Game
     def initialize(game:)
       @game = game
     end

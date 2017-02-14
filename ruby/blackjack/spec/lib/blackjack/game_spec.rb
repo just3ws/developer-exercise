@@ -3,13 +3,38 @@
 require_relative '../../../lib/blackjack/table'
 require_relative '../../../lib/blackjack/dealer'
 require_relative '../../../lib/blackjack/player'
-require_relative '../../../lib/blackjack/session'
+require_relative '../../../lib/blackjack/game'
 
 module Blackjack
-  RSpec.describe Session do
+  RSpec.describe Game, focus: true do
     subject { Table.new }
     let(:dealer) { Dealer.new }
     let(:player_one) { Player.new }
+
+    describe '#start!' do
+      context 'not ready to start' do
+        it 'complains that the game is not ready' do
+          error_message = 'Game is not ready to start'
+
+          expect { subject.start! }
+            .to raise_error(error_message)
+        end
+      end
+
+      fcontext 'ready to start' do
+        before do
+          dealer.take_ownership_of(game: subject)
+          player_one.enter(game: subject)
+        end
+
+        fit 'should be ready' do
+          skip
+          subject.start!
+          # expect { subject.start! }
+          # .to change { subject.dealer.active? }.from(false).to(true)
+        end
+      end
+    end
 
     describe '#ready?' do
       it 'starts with an empty game' do
@@ -44,30 +69,6 @@ module Blackjack
 
           expect(subject)
             .to be_ready
-        end
-      end
-    end
-
-    describe '#start!' do
-      context 'not ready to start' do
-        it 'complains that the game is not ready' do
-          error_message = 'Game is not ready to start'
-
-          expect { subject.start! }
-            .to raise_error(error_message)
-        end
-
-        context 'ready to start' do
-          before do
-            dealer.take_ownership_of(game: subject)
-            player_one.enter(game: subject)
-          end
-
-          fit 'should be ready' do
-            subject.start!
-            # expect { subject.start! }
-            # .to change { subject.dealer.active? }.from(false).to(true)
-          end
         end
       end
     end

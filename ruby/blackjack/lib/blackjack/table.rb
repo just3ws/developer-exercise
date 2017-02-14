@@ -45,7 +45,7 @@ module Blackjack
 
       @dealer.prepare_for_game
 
-      Session.new(game: self).run
+      Game.new(game: self).run
     end
   end
 end
