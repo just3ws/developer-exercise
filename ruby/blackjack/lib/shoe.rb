@@ -6,18 +6,20 @@ class Shoe
   extend Forwardable
 
   def initialize(cards = [])
-    fill_with(cards: cards)
+    @cards = cards
+  end
+
+  def draw
+    @cards.delete_at(rand(@cards.count))
   end
 
   def_delegators :@cards, :count
 
-  def draw
-    @cards.delete_at(rand(count))
-  end
-
-  protected
-
-  def fill_with(cards:)
-    @cards = cards
+  def facts
+    {
+      shoe: {
+        count: @cards.count
+      }
+    }
   end
 end

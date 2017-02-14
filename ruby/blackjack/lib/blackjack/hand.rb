@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
-require 'forwardable'
-
 module Blackjack
   class Hand
-    extend Forwardable
-
     attr_reader :cards
 
     ACE ||= ->(card) { card.name.equal?(:ace) }
@@ -59,14 +55,14 @@ module Blackjack
       {
         hand: {
           pair?: pair?,
-          count: count,
+          count: cards.count,
           blackjack?: blackjack?,
           bust?: bust?,
           point_total: point_total,
           hard_count: hard_count,
           hard?: hard?,
           soft?: soft?
-        }
+        }.merge(cards: cards.map(&:facts))
       }
     end
   end

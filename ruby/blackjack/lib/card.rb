@@ -25,11 +25,20 @@ class Card
   end
 
   def as_token
-    return 'A' if name == :ace
+    return 'AC' if name == :ace
     rank.to_s.rjust(2, '0')
   end
 
   def facts
-    { name: @name }
+    {
+      card: {
+        token: as_token,
+        suit: suit,
+        name: name,
+        downcard?: downcard?,
+        upcard?: upcard?,
+        rank: rank
+      }
+    }
   end
 end

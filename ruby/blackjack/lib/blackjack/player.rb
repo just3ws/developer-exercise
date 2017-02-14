@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
-require 'forwardable'
-
 require_relative 'hand'
 
 require_relative 'strategies/basic_strategy'
 
 module Blackjack
   class Player
-    extend Forwardable
-
     include Strategies::BasicStrategy
 
     attr_reader :hand, :action, :tally
@@ -21,6 +17,8 @@ module Blackjack
     end
 
     def decide
+      puts
+
       raise NotImplementedError
     end
 

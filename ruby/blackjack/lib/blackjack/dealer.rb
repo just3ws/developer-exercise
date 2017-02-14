@@ -41,11 +41,7 @@ module Blackjack
     end
 
     def facts
-      {
-        dealer: {
-          upcard: upcard
-        }.merge(hand.facts)
-      }
+      { dealer: { upcard: upcard.facts } }
     end
 
     def shuffle_and_fill_a_new_shoe_with(number)
@@ -57,8 +53,5 @@ module Blackjack
         )
       )
     end
-
-    def_delegators :@hand, :dealt
-    def_delegators :@game, :active?
   end
 end

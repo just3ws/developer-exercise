@@ -13,8 +13,14 @@ module Blackjack
       @shoe = Shoe.new
 
       @boxes = []
+    end
 
-      @state = :inactive
+    def facts
+      {
+        table: {
+          boxes: boxes.map(&:facts)
+        }.merge(dealer.facts).merge(shoe.facts)
+      }
     end
 
     def welcome(player:)
@@ -34,14 +40,9 @@ module Blackjack
       @boxes.any? && @boxes.all? { |box| box.instance_of?(Player) }
     end
 
-    def active?
-      :active == @state
-    end
-
     def start!
       raise 'Game is not ready to start' unless ready?
 
-      @state = :active
       @dealer.prepare_for_game
 
       Session.new(game: self).run
