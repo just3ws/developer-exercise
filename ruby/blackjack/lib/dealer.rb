@@ -21,7 +21,7 @@ class Dealer
   end
 
   def prepare_for_game
-    @game.shoe = Shoe.new(DeckOfCards.new.open)
+    @game.shoe = Shoe.new(Deck.new.open)
   end
 
   def upcard
@@ -31,7 +31,7 @@ class Dealer
   def as_json
     {
       dealer: {
-        upcard: upcard.as_json
+        upcard: upcard&.as_json
       }
     }
   end

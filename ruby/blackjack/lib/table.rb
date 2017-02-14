@@ -38,10 +38,10 @@ class Table
   def as_json
     {
       table: {
-        boxes: boxes.map(&:facts)
+        boxes: boxes.map(&:as_json)
       }
-        .merge(dealer.facts)
-        .merge(shoe.facts)
+        .merge(dealer.as_json)
+        .merge(shoe.as_json)
     }
   end
 end
