@@ -50,6 +50,16 @@ class Hand
     cards.count == 2 && blackjack?
   end
 
+  def type
+    return 'Hard' if hard?
+    return 'Soft' if soft?
+    ''
+  end
+
+  def description
+    "#{type} #{point_total} built from #{cards.count} cards: #{cards.map(&:for_humans).join(', ')}"
+  end
+
   def as_json
     {
       hand: {
@@ -61,6 +71,8 @@ class Hand
         hard_count: hard_count,
         hard?: hard?,
         soft?: soft?,
+        type: type,
+        description: description,
         cards: cards.map(&:as_json)
       }
     }

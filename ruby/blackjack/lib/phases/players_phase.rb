@@ -9,14 +9,9 @@ module Phases
     end
 
     def run
-      LOG.here(self)
-
       deal_an_upcard_to_each_player
-
       deal_an_upcard_to_the_dealer
-
       deal_an_upcard_to_each_player
-
       deal_a_downcard_to_the_dealer
 
       LOG.info("Dealer upcard is #{game.dealer.upcard.for_humans}")
@@ -28,7 +23,7 @@ module Phases
         22.times do |turn_guard|
           raise 'INCONCEIVABLE!' if turn_guard >= 21
 
-          LOG.info("Player #{i} holding #{player.hand.soft? ? 'Soft' : 'Hard'} #{player.hand.point_total} consisting of #{player.hand.cards.map(&:for_humans).join(', ')}")
+          LOG.info("Player #{i} holding #{player.hand.description}")
 
           decision = player.decide
           case decision
@@ -40,10 +35,8 @@ module Phases
           end
 
           case player.state
-          when :blackjack
-            player.win!
-          when :bust
-            player.lose!
+          when :blackjack then player.win!
+          when :bust then player.lose!
           end
 
           if player.hand.bust?
@@ -57,7 +50,7 @@ module Phases
           end
 
           if player.done?
-            LOG.info("Player #{i} is done with their turn holding #{player.hand.soft? ? 'Soft' : 'Hard'} #{player.hand.point_total} consisting of #{player.hand.cards.map(&:for_humans).join(', ')}")
+            LOG.info("Player #{i} is done with their turn holding #{player.hand.description}")
             break
           end
         end
@@ -72,31 +65,13 @@ module Phases
       raise
     end
 
-    def player_state
-      return :blackjack if player.hand.blackjack?
-      # player.hand.blackjack!
-      # break
-      # end
-
-      return :bust if player.hand.bust?
-      # player.hand.bust!
-      # break
-      # end
-
-      :continue
-    end
-
     def deal_an_upcard_to_each_player
-      LOG.here(self)
       game.boxes.each do |player|
         deal_upcard_to(player)
       end
     end
 
     def deal_upcard_to(player)
-      LOG.here(self)
-      LOG.graph_for(player)
-
       game.dealer.deal_upcard_to(player)
     end
 
