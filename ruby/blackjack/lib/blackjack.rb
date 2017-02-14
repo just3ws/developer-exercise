@@ -1,20 +1,24 @@
 # frozen_string_literal: true
+
+require 'awesome_print'
+require 'pry'
+
 module Blackjack
 end
 
-require_relative 'card'
-require_relative 'deck'
-require_relative 'shoe'
+require 'card'
+require 'deck'
+require 'shoe'
 
-require_relative 'hand'
-require_relative 'game'
-require_relative 'table'
+require 'hand'
+require 'game'
+require 'table'
 
-require_relative 'rules/soft_17_rules'
+require 'rules/soft_17_rules'
 
-require_relative 'dealer'
-require_relative 'strategies/dealer_strategy'
+require 'dealer'
+require 'strategies/dealer_strategy'
 
-require_relative 'player'
-require_relative 'phases/players_phase'
-require_relative 'strategies/basic_strategy'
+require 'player'
+require 'phases/players_phase'
+require 'strategies/basic_strategy'

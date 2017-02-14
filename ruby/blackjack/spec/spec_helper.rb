@@ -1,5 +1,8 @@
 # frozen_string_literal: true
-require_relative '../lib/blackjack'
+require 'awesome_print'
+require 'pry'
+
+require 'blackjack'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

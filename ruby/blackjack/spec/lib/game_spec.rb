@@ -1,20 +1,11 @@
 # frozen_string_literal: true
 
-RSpec.describe Game, focus: true do
+RSpec.fdescribe Game do
   let(:table) { Table.new }
   let(:dealer) { Dealer.new }
   let(:player_one) { Player.new }
 
-  describe '#run' do
-    context 'not ready to start' do
-      it 'complains that the game is not ready' do
-        error_message = 'Game is not ready to start'
-
-        expect { table.run }
-          .to raise_error(error_message)
-      end
-    end
-
+  fdescribe '#run' do
     fcontext 'ready to start' do
       before do
         dealer.take_ownership_of(game: table)
@@ -27,6 +18,15 @@ RSpec.describe Game, focus: true do
         table.run
         # expect { table.run }
         # .to change { table.dealer.active? }.from(false).to(true)
+      end
+    end
+
+    context 'not ready to start' do
+      it 'complains that the game is not ready' do
+        error_message = 'Game is not ready to start'
+
+        expect { table.run }
+          .to raise_error(error_message)
       end
     end
   end

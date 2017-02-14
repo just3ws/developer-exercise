@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require_relative 'blackjack'
 
 class Player
   attr_accessor :hand, :action, :tally

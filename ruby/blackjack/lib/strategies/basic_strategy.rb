@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require_relative '../blackjack'
+require 'blackjack'
 
 module BasicStrategy
   def decide!

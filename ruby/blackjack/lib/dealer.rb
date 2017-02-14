@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require_relative 'blackjack'
 
 class Dealer
   attr_accessor :hand

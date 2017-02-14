@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require_relative 'blackjack'
 
 class Card
   attr_accessor :suit, :name, :rank

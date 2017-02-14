@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require_relative 'blackjack'
 
 class Table
   attr_accessor :boxes, :dealer, :shoe
