@@ -12,6 +12,7 @@ module Phases
       deal_an_upcard_to_the_dealer
 
       LOG.info('Beginning turn for Dealer')
+
       22.times do |turn_guard|
         raise 'INCONCEIVABLE!' if turn_guard >= 21
 
