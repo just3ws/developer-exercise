@@ -4,7 +4,7 @@ require 'colorize'
 
 # String.colors
 # String.modes
-# String.color_samples
+String.color_samples
 
 require 'warning'
 Warning.ignore(:fixnum)
@@ -19,7 +19,19 @@ Blackjack.logger = Logger.new(log_file).tap do |log|
   log.progname = '[T]'.blue
 end
 
+Blackjack.logger.formatter = proc do |_severity, _datetime, _progname, msg|
+  "#{msg}\n"
+end
+
 LOG = Blackjack.logger
+
+def LOG.here(instance, separator: '#')
+  info("#{instance.class.name.colorize(color: :light_blue)}#{separator}#{caller[0][/`.*'/][1..-2].colorize(color: :green)}".colorize(background: :black))
+end
+
+def LOG.graph_for(graphable)
+  debug(graphable.as_json.to_s.colorize(color: :yellow).to_s)
+end
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

@@ -8,8 +8,8 @@ class Game
   end
 
   def run
-    LOG.debug('Game#run'.red)
-    LOG.debug(game.as_json.to_s.light_yellow)
+    LOG.here(self)
+    LOG.graph_for(game)
 
     Phases::PlayersPhase.new(game: game).run
   end
