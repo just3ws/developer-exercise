@@ -55,11 +55,11 @@ module Blackjack
       @game.welcome(player: self)
     end
 
-    def facts
+    def as_json
       {
         player: {
           tally: tally
-        }.merge(hand.facts)
+        }.merge(hand.as_json)
       }
     end
   end

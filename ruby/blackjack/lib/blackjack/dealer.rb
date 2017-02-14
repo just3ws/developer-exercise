@@ -40,8 +40,8 @@ module Blackjack
       hand.cards.first(&:upcard?)
     end
 
-    def facts
-      { dealer: { upcard: upcard.facts } }
+    def as_json
+      { dealer: { upcard: upcard.as_json } }
     end
 
     def shuffle_and_fill_a_new_shoe_with(number)

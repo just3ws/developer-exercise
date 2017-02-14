@@ -15,7 +15,7 @@ class Shoe
 
   def_delegators :@cards, :count
 
-  def facts
+  def as_json
     {
       shoe: {
         count: @cards.count

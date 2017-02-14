@@ -29,7 +29,7 @@ class Card
     rank.to_s.rjust(2, '0')
   end
 
-  def facts
+  def as_json
     {
       card: {
         token: as_token,

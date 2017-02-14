@@ -15,7 +15,7 @@ module Blackjack
       @boxes = []
     end
 
-    def facts
+    def as_json
       {
         table: {
           boxes: boxes.map(&:facts)

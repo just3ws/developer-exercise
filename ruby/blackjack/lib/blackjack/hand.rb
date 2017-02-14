@@ -51,7 +51,7 @@ module Blackjack
       cards.count == 2 && blackjack?
     end
 
-    def facts
+    def as_json
       {
         hand: {
           pair?: pair?,
@@ -62,7 +62,7 @@ module Blackjack
           hard_count: hard_count,
           hard?: hard?,
           soft?: soft?
-        }.merge(cards: cards.map(&:facts))
+        }.merge(cards: cards.map(&:as_json))
       }
     end
   end

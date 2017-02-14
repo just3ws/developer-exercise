@@ -11,14 +11,14 @@ require_relative 'rules/soft_17_rules'
 module Blackjack
   module Strategies
     module BasicStrategy
-      def facts
-        OpenStruct.new(
-          hand_type: hand.soft? ? :soft : :hard,
-          point_total: hand.point_total,
-          upcard_token: @game.dealer.upcard.as_token,
-          hand_tokens: hand.cards.map(&:as_token).sort.join(',')
-        ).freeze
-      end
+      # def facts
+      #   OpenStruct.new(
+      #     hand_type: hand.soft? ? :soft : :hard,
+      #     point_total: hand.point_total,
+      #     upcard_token: @game.dealer.upcard.as_token,
+      #     hand_tokens: hand.cards.map(&:as_token).sort.join(',')
+      #   ).freeze
+      # end
 
       def decision_engines
         [].tap do |engines|
