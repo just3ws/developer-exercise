@@ -5,7 +5,7 @@ class Player
 
   def initialize
     @hand = Hand.new
-    @state = :undefined
+    @state = :unknown
     @decisions = []
     @done = false
   end
