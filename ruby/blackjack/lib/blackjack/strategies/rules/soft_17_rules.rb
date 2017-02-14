@@ -4,27 +4,29 @@ module Blackjack
   module Strategies
     module Rules
       class Soft17Rules
-        attr_reader :point_total, :hand_type
+        attr_reader :facts
 
-        def initialize(params = {})
-          @hand_type = params[:hand_type]
-          @point_total = params[:point_total]
+        def initialize(facts)
+          @facts = facts
         end
-        #
-        # soft 17? hit
-        #
-        # else stand
-        #
 
         def suggest
-          return :hit if hit?
-          return :stand if stand?
-          :indeterminate
+          print "CHECKING #{self.class.name.split('::').last} => "
+          suggestion = if hit? then :hit if hit?
+                       elsif stand? then :stand if stand?
+                       else :indeterminate
+                       end
+          puts suggestion
+          suggestion
         end
 
-        def hit?; end
+        def hit?
+          facts.hand_type == :soft && facts.point_total <= 17
+        end
 
-        def stand?; end
+        def stand?
+          facts.hand_type == :soft && facts.point_total > 17
+        end
       end
     end
   end

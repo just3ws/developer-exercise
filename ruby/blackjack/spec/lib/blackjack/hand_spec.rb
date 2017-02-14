@@ -253,20 +253,20 @@ module Blackjack
       end
     end
 
-    describe '#natural_blackjack?' do
+    describe '#natural?' do
       context 'valid patterns' do
         before { subject.cards << Card.new(name: :ace, rank: [1, 11]) }
 
         it 'ace with ten is a natural blackjack' do
           subject.cards << Card.new(name: :ten, rank: 10)
 
-          expect(subject).to be_natural_blackjack
+          expect(subject).to be_natural
         end
 
         it 'ace with jack is a natural blackjack' do
           subject.cards << Card.new(name: :jack, rank: 10)
 
-          expect(subject).to be_natural_blackjack
+          expect(subject).to be_natural
         end
       end
 
@@ -275,7 +275,7 @@ module Blackjack
           subject.cards << Card.new(name: :ace, rank: [1, 11])
           subject.cards << Card.new(name: :ace, rank: [1, 11])
 
-          expect(subject).to_not be_natural_blackjack
+          expect(subject).to_not be_natural
         end
 
         it 'three cards are not a natural blackjack' do
@@ -283,14 +283,14 @@ module Blackjack
           subject.cards << Card.new(name: :ace, rank: [1, 11])
           subject.cards << Card.new(name: :nine, rank: 9)
 
-          expect(subject).to_not be_natural_blackjack
+          expect(subject).to_not be_natural
         end
 
         it 'two low cards are not a natural blackjack' do
           subject.cards << Card.new(name: :two, rank: 2)
           subject.cards << Card.new(name: :four, rank: 4)
 
-          expect(subject).to_not be_natural_blackjack
+          expect(subject).to_not be_natural
         end
       end
     end

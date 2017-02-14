@@ -6,11 +6,11 @@ Not implemented: bets, insurance, split, surrender, or double/double down
 
 ```ruby
 
-boxes.each { |player| player.receive(dealer.deal.face_up!) }
+boxes.each { |player| player.hand.dealt(dealer.deal.face_up!) }
 
 dealer.receive(dealer.deal.face_up!)
 
-boxes.each { |player| player.receive(dealer.deal.face_up!) }
+boxes.each { |player| player.hand.dealt(dealer.deal.face_up!) }
 
 dealer.receive(dealer.deal)
 
@@ -20,8 +20,8 @@ boxes.each do |player|
     if player.hit?
       player.receive(dealer.deal.face_up!)
     end
-    break if player.blackjack?
-    break if player.bust?
+    break if player.hand.blackjack?
+    break if player.hand.bust?
   end
 end
 
@@ -50,17 +50,17 @@ end
 
 boxes.each do |player|
   case
-  when dealer.bust?
+  when dealer.hand.bust?
     player.win!
-  when dealer.point_total < player.point_total
+  when dealer.hand.point_total < player.hand.point_total
     player.win!
-  when dealer.blackjack? && player.blackjack?
-    player.push!
-  when dealer.point_total == player.point_total
-    player.push!
-  when dealer.point_total > player.point_total
+  when dealer.hand.blackjack? && player.hand.blackjack?
+    player.tie!
+  when dealer.hand.point_total == player.hand.point_total
+    player.tie!
+  when dealer.hand.point_total > player.hand.point_total
     player.lose!
-  when player.bust?
+  when player.hand.bust?
     player.lose!
   end
 end

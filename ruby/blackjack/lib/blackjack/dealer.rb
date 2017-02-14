@@ -20,11 +20,11 @@ module Blackjack
     end
 
     def deal_upcard_to(player)
-      player.dealt(@game.shoe.draw.upcard!)
+      player.hand.dealt(@game.shoe.draw.upcard!)
     end
 
     def deal_downcard_to(player)
-      player.dealt(@game.shoe.draw)
+      player.hand.dealt(@game.shoe.draw)
     end
 
     def take_ownership_of(game:)
@@ -40,6 +40,14 @@ module Blackjack
       hand.cards.first(&:upcard?)
     end
 
+    def facts
+      {
+        dealer: {
+          upcard: upcard
+        }.merge(hand.facts)
+      }
+    end
+
     def shuffle_and_fill_a_new_shoe_with(number)
       OpenStruct.new(
         decks: Shoe.new(
@@ -50,7 +58,6 @@ module Blackjack
       )
     end
 
-    # def_delegators :@hand, :count
     def_delegators :@hand, :dealt
     def_delegators :@game, :active?
   end

@@ -5,6 +5,23 @@ module Blackjack
   module Strategies
     module Rules
       class ThreePlusSoftHandRules
+        attr_reader :hand_tokens, :upcard_token
+
+        def initialize(params = {})
+          @upcard_token = params[:upcard_token]
+          @hand_tokens = params[:hand_tokens]
+        end
+
+        def suggest
+          print "CHECKING #{self.class.name.split('::').last} => "
+          suggestion = if hit? then :hit if hit?
+                       elsif stand? then :stand if stand?
+                       else :indeterminate
+                       end
+          puts suggestion
+          suggestion
+        end
+
         # Play #7. Playing a Soft Hand Containing Three or More Cards
         #
         # “My strategy card says to double soft 18 against a 4, but if I’m dealt Ace-3-4
