@@ -41,6 +41,10 @@ class Dealer
     @state.equal?(:tied)
   end
 
+  def unknown?
+    @state.equal?(:unknown)
+  end
+
   def win!
     @state = :won
   end

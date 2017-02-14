@@ -11,6 +11,7 @@ class Game
     LOG.info("Beginning game with #{game.boxes.count} player(s)")
     Phases::PlayersPhase.new(game: game).run
     Phases::DealersPhase.new(game: game).run
+    Phases::ResolutionPhase.new(game: game).run
     LOG.info("End of game with #{game.boxes.count} player(s)")
   end
 end
