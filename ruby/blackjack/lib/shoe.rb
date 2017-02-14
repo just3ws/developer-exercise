@@ -1,9 +1,8 @@
 # frozen_string_literal: true
-
-require 'forwardable'
+require_relative 'blackjack'
 
 class Shoe
-  extend Forwardable
+  attr_accessor :cards
 
   def initialize(cards = [])
     @cards = cards
@@ -13,12 +12,12 @@ class Shoe
     @cards.delete_at(rand(@cards.count))
   end
 
-  def_delegators :@cards, :count
-
   def as_json
     {
       shoe: {
-        count: @cards.count
+        cards: {
+          count: @cards.count
+        }
       }
     }
   end

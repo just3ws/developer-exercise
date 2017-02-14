@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require_relative '../../lib/shuffling_device'
-require_relative '../../lib/house'
-require 'awesome_print'
 
 RSpec.describe ShufflingDevice do
   let(:one_deck_of_cards) { DeckOfCards.new.open }

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../../lib/card'
-
 RSpec.describe Card do
   subject do
     Card.new(

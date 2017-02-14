@@ -1,7 +1,8 @@
 # frozen_string_literal: true
+require_relative 'blackjack'
 
 class Card
-  attr_reader :suit, :name, :rank
+  attr_accessor :suit, :name, :rank
 
   def initialize(suit: nil, name: nil, rank: nil, downcard: true)
     @suit = suit
