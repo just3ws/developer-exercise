@@ -3,6 +3,8 @@
 module Phases
   class DealersPhase
     include PlayState
+    include TurnState
+    include DecisionState
 
     attr_accessor :game
 

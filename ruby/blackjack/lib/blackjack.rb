@@ -26,6 +26,8 @@ require 'table'
 # require 'rules/soft_17_rules'
 
 require 'play_state'
+require 'turn_state'
+require 'decision_state'
 
 require 'dealer'
 # require 'strategies/dealer_strategy'

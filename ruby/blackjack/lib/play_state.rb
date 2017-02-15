@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module PlayState
+  attr_accessor :play_state
+
   # Player/Dealer
   UNKNOWN_PLAY_STATE = :unknown
   BLACKJACK = :blackjack
@@ -15,41 +17,8 @@ module PlayState
   PUSH = :push
   TIE_STATES = [PUSH].freeze
 
-  # Decisions
-  HIT = :hit
-  STAND = :stand
-
-  # Turn
-  CONTINUE = :continue
-  DONE = :done
-
-  # Defaults
-  def defaults!
-    @turn_state = CONTINUE
+  def set_initial_play_state!
     @play_state = UNKNOWN_PLAY_STATE
-  end
-
-  # Turn
-  def done!
-    @turn_state = DONE
-  end
-
-  def done?
-    @turn_state.equal?(DONE)
-  end
-
-  def continue?
-    @turn_state.equal?(CONTINUE)
-  end
-
-  # Decisons
-  def hit!
-    @decision_state = :hit
-  end
-
-  def stand!
-    done!
-    @decision_state = :stand
   end
 
   # Player/Dealer

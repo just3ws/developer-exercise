@@ -1,14 +1,18 @@
 # frozen_string_literal: true
 
 class Player
-  attr_accessor :hand, :game, :decisions, :turn_state, :play_state
+  attr_accessor :hand, :game
 
   include PlayState
+  include TurnState
+  include DecisionState
 
   def initialize
-    defaults!
+    set_initial_play_state!
+    set_initial_turn_state!
+    set_initial_decisions_state!
+
     @hand = Hand.new
-    @decisions = []
   end
 
   def decide
