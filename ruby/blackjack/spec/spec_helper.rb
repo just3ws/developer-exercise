@@ -25,8 +25,8 @@ def LOG.here(instance, separator: '#')
   debug("#{instance.class.name.colorize(color: :light_blue)}#{separator}#{caller[0][/`.*'/][1..-2].colorize(color: :green)}".colorize(background: :black))
 end
 
-def LOG.graph_for(graphable)
-  debug(graphable.as_json.to_s.colorize(color: :yellow).to_s)
+def LOG.graph(graphable)
+  debug(graphable.as_graph.to_s.colorize(color: :yellow).to_s)
 end
 
 def LOG.alert(msg, line: nil)

@@ -33,7 +33,7 @@ class Card
     "#{name.capitalize} of #{suit.capitalize}"
   end
 
-  def as_json
+  def as_graph
     {
       card: {
         token: as_token,

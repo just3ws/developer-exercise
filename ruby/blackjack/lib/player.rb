@@ -24,7 +24,7 @@ class Player
 
     decisions.push({
       decision: decision, done?: done?
-    }.merge(hand.as_json))
+    }.merge(hand.as_graph))
 
     decision
   end
@@ -34,12 +34,12 @@ class Player
     game.accept(player: self)
   end
 
-  def as_json
+  def as_graph
     dealer_upcard = {}.tap do |hash|
       unless game&.dealer&.upcard&.nil?
         hash.merge(game: {
                      dealer: {
-                       upcard: game.dealer.upcard.as_json
+                       upcard: game.dealer.upcard.as_graph
                      }
                    })
       end
@@ -49,7 +49,7 @@ class Player
       player: {
         play_state: play_state,
         decisions: decisions
-      }.merge(hand.as_json)
+      }.merge(hand.as_graph)
         .merge(dealer_upcard)
     }
   end

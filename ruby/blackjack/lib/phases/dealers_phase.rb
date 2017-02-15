@@ -43,7 +43,8 @@ module Phases
         next unless game.dealer.done?
 
         LOG.debug("Dealer has hand: #{game.dealer.hand.description}")
-        LOG.alert("Dealer turn is #{game.dealer.done}")
+
+        LOG.alert("Dealer turn is #{game.dealer.turn_state}")
 
         break
       end

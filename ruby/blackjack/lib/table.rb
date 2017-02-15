@@ -35,13 +35,13 @@ class Table
     @boxes.any? && @boxes.all? { |box| box.instance_of?(Player) }
   end
 
-  def as_json
+  def as_graph
     {
       table: {
-        boxes: boxes.map(&:as_json)
+        boxes: boxes.map(&:as_graph)
       }
-        .merge(dealer.as_json)
-        .merge(shoe.as_json)
+        .merge(dealer.as_graph)
+        .merge(shoe.as_graph)
     }
   end
 end

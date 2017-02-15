@@ -48,7 +48,9 @@ module Phases
 
           next unless player.done?
 
-          LOG.alert("Player #{i} is done: #{player.hand.description}")
+          LOG.debug("Player #{i} has hand: #{player.hand.description}")
+
+          LOG.alert("Player #{i} turn is #{player.turn_state}")
 
           break
         end

@@ -19,7 +19,7 @@ class Dealer
                  stand!
                end
 
-    decisions.push({ decision: decision, done?: done? }.merge(hand.as_json))
+    decisions.push({ decision: decision, done?: done? }.merge(hand.as_graph))
 
     decision
   end
@@ -45,11 +45,11 @@ class Dealer
     hand.cards.first(&:upcard?)
   end
 
-  def as_json
+  def as_graph
     {
       dealer: {
-        upcard: upcard&.as_json
-      }.merge(hand.as_json)
+        upcard: upcard&.as_graph
+      }.merge(hand.as_graph)
     }
   end
 end

@@ -60,7 +60,7 @@ class Hand
     "#{type} #{point_total} built from #{cards.count} cards: #{cards.map(&:for_humans).join(', ')}"
   end
 
-  def as_json
+  def as_graph
     {
       hand: {
         pair?: pair?,
@@ -74,7 +74,7 @@ class Hand
         soft?: soft?,
         type: type,
         description: description,
-        cards: cards.map(&:as_json)
+        cards: cards.map(&:as_graph)
       }
     }
   end

@@ -11,7 +11,7 @@ class Shoe
     @cards.delete_at(rand(@cards.count))
   end
 
-  def as_json
+  def as_graph
     {
       shoe: {
         cards: {
