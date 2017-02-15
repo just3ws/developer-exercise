@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'logger'
-require 'colorize'
 
 module Blackjack
   class << self
@@ -14,7 +13,7 @@ log_file = open("log/#{ENV.fetch('BLACKJACK_ENV', 'development')}.log", File::WR
 end
 
 Blackjack.log = Logger.new(log_file).tap do |log|
-  log.progname = "[blackjack-#{ENV.fetch('BLACKJACK_ENV', 'development')}]".blue
+  log.progname = "[blackjack-#{ENV.fetch('BLACKJACK_ENV', 'development')}]"
 end
 
 Blackjack.log.formatter = proc do |_severity, _datetime, _progname, msg|
@@ -24,24 +23,23 @@ end
 LOG = Blackjack.log
 
 def LOG.here(instance, separator: '#')
-  debug("#{instance.class.name.colorize(color: :light_blue)}#{separator}#{caller[0][/`.*'/][1..-2].colorize(color: :green)}".colorize(background: :black))
+  debug("#{instance.class.name}#{separator}#{caller[0][/`.*'/][1..-2]}")
 end
 
 def LOG.graph(graphable)
-  debug(graphable.as_graph.to_s.colorize(color: :yellow).to_s)
+  debug(graphable.as_graph.to_s)
 end
 
 def LOG.alert(msg, line: nil)
-  colorized = msg.colorize(color: :red, background: :white)
   formatted = case line
               when :before
-                "\n#{colorized}"
+                "\n#{msg}"
               when :after
-                "#{colorized}\n"
+                "#{msg}\n"
               when :both
-                "\n#{colorized}\n"
+                "\n#{msg}\n"
               else
-                colorized
+                msg
               end
   info(formatted)
 end

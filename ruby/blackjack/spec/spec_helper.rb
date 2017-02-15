@@ -2,8 +2,6 @@
 
 ENV['BLACKJACK_ENV'] ||= 'test'
 
-require 'colorize'
-
 require 'warning'
 Warning.ignore(:fixnum)
 

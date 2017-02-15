@@ -34,6 +34,5 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '~> 1.14'
   spec.add_development_dependency 'rspec', '~> 3.5.0'
-  spec.add_development_dependency 'colorize', '~> 0.8.1'
   spec.add_development_dependency 'pry', '~> 0.10.4'
 end

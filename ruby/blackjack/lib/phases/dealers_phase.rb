@@ -26,9 +26,9 @@ module Phases
 
         case decision
         when STAND
-          LOG.info("Dealer has decided to #{'STAND'.colorize(color: :blue)}")
+          LOG.info("Dealer has decided to STAND")
         when HIT
-          LOG.info("Dealer has decided to #{'HIT'.colorize(color: :red)}")
+          LOG.info("Dealer has decided to HIT")
           deal_an_upcard_to_the_dealer
         end
 

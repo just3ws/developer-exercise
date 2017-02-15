@@ -32,9 +32,9 @@ module Phases
 
           case decision
           when STAND
-            LOG.info("Player #{i} has decided to #{'STAND'.colorize(color: :blue)}")
+            LOG.info("Player #{i} has decided to STAND")
           when HIT
-            LOG.info("Player #{i} has decided to #{'HIT'.colorize(color: :red)}")
+            LOG.info("Player #{i} has decided to HIT")
             deal_upcard_to(player)
           end
 
