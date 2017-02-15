@@ -8,3 +8,4 @@ Gemfile.lock
 Guardfile
 Rakefile
 blackjack.gemspec
+spec/spec_helper.rb

@@ -16,114 +16,53 @@ module Phases
     end
 
     def run
-      puts
 
-      # if game.dealer.hand.blackjack?
-      #   game.boxes.each(&:dealer_blackjack!)
+      if game.dealer.hand.bust?
+        LOG.debug("Dealer busted holding #{game.dealer.hand.description}")
+        # If player hasn't already won then convert to win by dealer bust
+        game.boxes.select { |player| player.unknown? }.each(&:dealer_bust!)
+      elsif game.dealer.hand.blackjack?
+        LOG.debug("Dealer blackjack holding #{game.dealer.hand.description}")
+        # NOTE: "Blackjack" is an exactly 2 card twenty-one and beats a >2 twenty-one.
 
-      # elsif game.dealer.hand.bust?
-      #   game.boxes.reject(&:lost?).each(&:dealer_bust!)
-      # end
+        # If player hasn't already won then convert to loss by dealer blackjack
+        game.boxes.reject { |player| player.hand.blackjack? }.each(&:dealer_blackjack!)
+        # If player has blackjack as well then they are converted to push
+        game.boxes.select { |player| player.hand.blackjack? }.each(&:push!)
+      else
+        LOG.debug("Dealer showdown holding #{game.dealer.hand.description}")
 
-      # puts game.boxes.map(&:play_state)
-
-      # puts game.dealer.hand.point_total
-
-      # @board.merge(@game.boxes.group_by(&:play_state))
-
-      # if @game.dealer.hand.point_total.equal?(21)
-      #   handle_dealer_twenty_one
-      # elsif dealer_bust?
-      #   if_dealer_bust
-      # else
-
-      #   if_dealer_showdown
-
-      # end
-
-      # puts
-
-      # LOG.ap(@game.dealer.hand.twenty_one?)
-      # LOG.ap(@game.dealer.hand.bust?)
-      # LOG.ap(@game.dealer.hand.point_total)
-      # LOG.ap(@losers.map { |player| [player.play_state, player.hand.point_total] })
-      # LOG.ap(@winners.map { |player| [player.play_state, player.hand.point_total] })
-      # LOG.ap(@unknowns.map { |player| [player.play_state, player.hand.point_total] })
-    end
-
-    def dealer_blackjack?; end
-
-    def dealer_bust?
-      @game.dealer.hand.bust?
-    end
-
-    def dealer_showdown?
-      # dealer is not blackjack
-      # dealer is not bust
-      # no player has blackjack
-      # any player has not bust
-    end
-
-    def handle_dealer_twenty_one
-      @board[:lost] |= @board[:unknown]
-      @board.delete(:unknowns)
-
-      @dealer
-
-      @game.dealer.push! if @winners.any?
-      @winners.each(&:push!)
-      @ties |= @winners
-      @winners.clear
-      @unknowns.clear
-    end
-
-    def if_dealer_bust
-      @winners |= @unknowns
-      @unknowns.clear
-    end
-
-    def if_dealer_showdown
-      points_to_beat = @game.dealer.hand.point_total
-
-      puts
-
-      winners, unknowns = split_showdown_winners_from_rest
-
-      @unknowns.group_by do |player|
-        player.hand.point_total > @game.dealer.hand.point_total
-      end
-
-      if winners.any?
-        @winners |= winners.map(&:win!)
-        ws.clear
-
-        @losers |= maybes.map(&:lose!)
-        maybes.clear
-
-        @game.dealer.lose! if @winners.any?
-
-        @unknowns.clear
-      elsif maybes.any?
-        ts, ls = @unknowns.partition do |player|
-          player.hand.point_total == @game.dealer.hand.point_total
+        # Dealer showdown
+        remaining_players = game.boxes.reject do |player|
+          player.lost? || player.hand.blackjack?
         end
 
-        @ties |= ts.map(&:push!)
-        ts.clear
-
-        @losers |= ls.map(&:lose!)
-        ls.clear
-
-        # game.dealer.push! if @winners.none? && @ties.any?
-        # game.dealer.win! if @winners.none? && @ties.none?
-        # game.dealer.lose! if @winners.any?
-
-        @unknowns.clear
+        remaining_players.each do |player|
+          if player.hand.point_total > game.dealer.hand.point_total
+            player.high_hand!
+          elsif player.hand.point_total == game.dealer.hand.point_total
+            player.push!
+          else
+            player.low_hand!
+          end
+        end
       end
-    end
 
-    def split_showdown_winners_from_rest
-      # [ [winners], [unknowns] ]
+      game.boxes.each_with_index do |player, i|
+        i = i+1
+
+        final = if player.won?
+                  'won'
+                elsif player.lost?
+                  'lost'
+                elsif player.tied?
+                  'tied'
+                else
+                  raise 'Unknown final play state'
+                end
+        LOG.debug("Player #{i} #{final} by #{player.play_state} with #{player.hand.description}")
+
+      end
     end
   end
 end

@@ -4,12 +4,16 @@ RSpec.fdescribe Game do
   let(:table) { Table.new }
   let(:dealer) { Dealer.new }
   let(:player_one) { Player.new }
+  let(:player_two) { Player.new }
+  let(:player_three) { Player.new }
 
   fdescribe '#run' do
     fcontext 'ready to start' do
       before do
         dealer.take_ownership_of(game: table)
         player_one.enter(game: table)
+        player_two.enter(game: table)
+        player_three.enter(game: table)
       end
 
       fit 'should be ready' do
