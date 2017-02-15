@@ -1,13 +1,19 @@
+inherit_from: .rubocop_todo.yml
+
 AllCops:
+  TargetRubyVersion: 2.4
+  DefaultFormatter: fuubar
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  ExtraDetails: true
+  # Cache the analysis results
+  UseCache: true
+  CacheRootDirectory: /tmp
+  MaxFilesInCache: 2048
   Exclude:
     - 'vendor/**/*'
-    - 'spec/fixtures/**/*'
     - 'tmp/**/*'
-  TargetRubyVersion: 2.4
-
-Style/Encoding:
-  EnforcedStyle: when_needed
-  Enabled: true
+    - '.stash/**/*'
 
 Style/FrozenStringLiteralComment:
   EnforcedStyle: always
@@ -20,16 +26,21 @@ Metrics/BlockLength:
     - 'spec/**/*.rb'
 
 Metrics/LineLength:
-  Enabled: false
+  Enabled: true
 
 Style/Documentation:
   Enabled: false
 
 Metrics/CyclomaticComplexity:
-  Enabled: false
+  Enabled: true
 
 Metrics/AbcSize:
-  Enabled: false
+  Enabled: true
 
 Metrics/MethodLength:
-  Enabled: false
+  Enabled: true
+
+Style/Encoding:
+  EnforcedStyle: when_needed
+  Enabled: true
+
