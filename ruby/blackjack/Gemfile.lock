@@ -89,19 +89,19 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  awesome_print (~> 1.7.0)
+  awesome_print
   blackjack!
   bundler (~> 1.14)
-  byebug (~> 9.0.6)
+  byebug
   colorize (~> 0.8.1)
-  fuubar (~> 2.2.0)
+  fuubar
   guard-rspec
-  pry (~> 0.10.4)
-  pry-byebug (~> 3.4.2)
+  pry
+  pry-byebug
   rspec (~> 3.5.0)
   rubocop
   ruby-lint
-  warning (~> 0.10.0)
+  warning
 
 BUNDLED WITH
    1.14.4
