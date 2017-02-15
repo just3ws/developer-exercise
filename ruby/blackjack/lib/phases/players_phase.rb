@@ -31,24 +31,14 @@ module Phases
           when :hit
             LOG.info("Player #{i} has decided to #{'HIT'.colorize(color: :red)}")
             deal_upcard_to(player)
-          end
-
-          case player.state
-          when :blackjack then player.win!
-          when :bust then player.lose!
-          end
-
-          if player.hand.bust?
-            LOG.info("Player #{i} has #{player.state} by going bust")
-          elsif player.hand.natural?
-            LOG.info("Player #{i} has #{player.state} with natural")
-          elsif player.hand.blackjack?
-            LOG.info("Player #{i} has #{player.state} by hitting #{player.hand.point_total}")
+          when :bust, :twenty_one, :blackjack
+            LOG.info("Player #{i} has #{player.state} by hitting #{player.state}")
           else
             LOG.info("Player #{i} has #{player.hand.point_total} in hand so their win/lose/draw is #{player.state}")
           end
 
-          next unless player.done?
+          next unless player.done? || player.lost?
+
           LOG.info("Player #{i} is done with their turn holding #{player.hand.description}")
 
           break

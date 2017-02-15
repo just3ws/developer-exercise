@@ -32,11 +32,15 @@ module Phases
         when :bust then game.dealer.lose!
         end
 
+        puts
+
         if game.dealer.hand.bust?
           LOG.info("Dealer has #{game.dealer.state} by going bust")
-        elsif game.dealer.hand.natural?
-          LOG.info("Dealer has #{game.dealer.state} with natural")
         elsif game.dealer.hand.blackjack?
+          LOG.info("Dealer has #{game.dealer.state} with blackjack")
+        elsif game.dealer.hand.twenty_one?
+          LOG.info("Dealer has #{game.dealer.state} with twenty_one")
+        elsif game.dealer.hand.twenty_one?
           LOG.info("Dealer has #{game.dealer.state} by hitting #{game.dealer.hand.point_total}")
         else
           LOG.info("Dealer has #{game.dealer.hand.point_total} in hand so their win/lose/draw is #{game.dealer.state}")

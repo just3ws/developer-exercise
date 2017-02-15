@@ -28,7 +28,7 @@ class Hand
 
   def point_total
     return hard_count if hard?
-    # Treat Ace as 11.
+    # Treat Ace as 11 if possible.
     # Short hand for `(hard_count - 1) + 11`
     10 + hard_count
   end
@@ -42,12 +42,12 @@ class Hand
     hard_count > 21
   end
 
-  def blackjack?
-    point_total.equal?(21)
+  def twenty_one?
+    cards.count > 2 && point_total.equal?(21)
   end
 
-  def natural?
-    cards.count == 2 && blackjack?
+  def blackjack?
+    cards.count == 2 && twenty_one?
   end
 
   def type
@@ -65,6 +65,7 @@ class Hand
       hand: {
         pair?: pair?,
         count: cards.count,
+        twenty_one?: twenty_one?,
         blackjack?: blackjack?,
         bust?: bust?,
         point_total: point_total,

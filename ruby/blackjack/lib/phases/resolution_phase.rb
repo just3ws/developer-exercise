@@ -2,87 +2,113 @@
 
 module Phases
   class ResolutionPhase
-    attr_accessor :game
-
-    attr_accessor :game, :losers, :winners, :ties, :unknown
-
     def initialize(game:)
       @game = game
-
-      @losers = []
-      @winners = []
-      @unknown = []
-      @ties = []
+      @board = {
+        dealer: @game.dealer,
+        won: [],
+        lost: [],
+        unknown: [],
+        tied: []
+      }
     end
 
     def run
-      @losers = game.boxes.select(&:lost?)
-      @winners = game.boxes.select(&:won?)
-      @unknown = game.boxes.select(&:unknown?)
+      @board.merge(@game.boxes.group_by(&:state))
 
-      if dealer_won?
-        if_dealer_won
-      elsif dealer_lost?
-        if_dealer_lost
-      elsif dealer_unknown?
-        if_dealer_unknown
+      if @game.dealer.hand.point_total.equal?(21)
+        handle_dealer_twenty_one
+      elsif dealer_bust?
+        if_dealer_bust
+      else
+
+        if_dealer_showdown
+
       end
+
+      puts
+
+      LOG.ap(@game.dealer.hand.twenty_one?)
+      LOG.ap(@game.dealer.hand.bust?)
+      LOG.ap(@game.dealer.hand.point_total)
+      LOG.ap(@losers.map { |player| [player.state, player.hand.point_total] })
+      LOG.ap(@winners.map { |player| [player.state, player.hand.point_total] })
+      LOG.ap(@unknowns.map { |player| [player.state, player.hand.point_total] })
     end
 
-    def dealer_won?
-      game.dealer.hand.won?
+    def dealer_blackjack?; end
+
+    def dealer_bust?
+      @game.dealer.hand.bust?
     end
 
-    def dealer_lost?
-      game.dealer.hand.lost?
+    def dealer_showdown?
+      # dealer is not blackjack
+      # dealer is not bust
+      # no player has blackjack
+      # any player has not bust
     end
 
-    def dealer_unknown?
-      game.dealer.hand.unknown?
-    end
+    def handle_dealer_twenty_one
+      @board[:lost] |= @board[:unknown]
+      @board.delete(:unknowns)
 
-    def if_dealer_won
-      # unknowns lose
-      @losers |= @unknowns
-      @unknowns.clear
+      @dealer
 
-      game.dealer.push! if @winners.any?
+      @game.dealer.push! if @winners.any?
       @winners.each(&:push!)
       @ties |= @winners
       @winners.clear
       @unknowns.clear
     end
 
-    def is_dealer_lost
+    def if_dealer_bust
       @winners |= @unknowns
       @unknowns.clear
     end
 
     def if_dealer_showdown
-      ws, maybes = @unknowns.partition do |player|
-        player.hand.point_total > game.dealer.hand.point_total
+      points_to_beat = @game.dealer.hand.point_total
+
+      puts
+
+      winners, unknowns = split_showdown_winners_from_rest
+
+      @unknowns.group_by do |player|
+        player.hand.point_total > @game.dealer.hand.point_total
       end
 
-      if ws.any?
-        dealer.lose!
-        @winners |= ws.map(&:win!)
+      if winners.any?
+        @winners |= winners.map(&:win!)
         ws.clear
+
         @losers |= maybes.map(&:lose!)
         maybes.clear
+
+        @game.dealer.lose! if @winners.any?
 
         @unknowns.clear
       elsif maybes.any?
         ts, ls = @unknowns.partition do |player|
-          player.hand.point_total == game.dealer.hand.point_total
+          player.hand.point_total == @game.dealer.hand.point_total
         end
 
         @ties |= ts.map(&:push!)
         ts.clear
+
         @losers |= ls.map(&:lose!)
         ls.clear
 
+        # game.dealer.push! if @winners.none? && @ties.any?
+        # game.dealer.win! if @winners.none? && @ties.none?
+        # game.dealer.lose! if @winners.any?
+
         @unknowns.clear
       end
+    end
+
+    def split_showdown_winners_from_rest
+      # [ [winners], [unknowns] ]
     end
   end
 end

@@ -55,7 +55,7 @@ RSpec.describe Hand do
       expect(subject).to_not be_soft
     end
 
-    it 'treats natural blackjack as soft' do
+    it 'treats blackjack as soft' do
       subject.cards << Card.new(name: :ace, rank: [1, 11])
       subject.cards << Card.new(name: :ten, rank: 10)
 
@@ -121,8 +121,8 @@ RSpec.describe Hand do
     end
   end
 
-  describe '#blackjack?' do
-    it 'is natural' do
+  describe '#twenty_one?' do
+    it 'is blackjack' do
       subject.cards << Card.new(name: :king, rank: 10)
       subject.cards << Card.new(name: :ace, rank: [1, 11])
 
@@ -249,44 +249,44 @@ RSpec.describe Hand do
     end
   end
 
-  describe '#natural?' do
+  describe '#blackjack?' do
     context 'valid patterns' do
       before { subject.cards << Card.new(name: :ace, rank: [1, 11]) }
 
-      it 'ace with ten is a natural blackjack' do
+      it 'ace with ten is a blackjack' do
         subject.cards << Card.new(name: :ten, rank: 10)
 
-        expect(subject).to be_natural
+        expect(subject).to be_blackjack
       end
 
-      it 'ace with jack is a natural blackjack' do
+      it 'ace with jack is a blackjack' do
         subject.cards << Card.new(name: :jack, rank: 10)
 
-        expect(subject).to be_natural
+        expect(subject).to be_blackjack
       end
     end
 
     context 'invalid patterns' do
-      it 'ace with ace is not a natural blackjack' do
+      it 'ace with ace is not a blackjack' do
         subject.cards << Card.new(name: :ace, rank: [1, 11])
         subject.cards << Card.new(name: :ace, rank: [1, 11])
 
-        expect(subject).to_not be_natural
+        expect(subject).to_not be_blackjack
       end
 
-      it 'three cards are not a natural blackjack' do
+      it 'three cards are not a blackjack' do
         subject.cards << Card.new(name: :ace, rank: [1, 11])
         subject.cards << Card.new(name: :ace, rank: [1, 11])
         subject.cards << Card.new(name: :nine, rank: 9)
 
-        expect(subject).to_not be_natural
+        expect(subject).to_not be_blackjack
       end
 
-      it 'two low cards are not a natural blackjack' do
+      it 'two low cards are not a blackjack' do
         subject.cards << Card.new(name: :two, rank: 2)
         subject.cards << Card.new(name: :four, rank: 4)
 
-        expect(subject).to_not be_natural
+        expect(subject).to_not be_blackjack
       end
     end
   end
