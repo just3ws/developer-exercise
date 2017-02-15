@@ -2,6 +2,8 @@
 
 module Phases
   class ResolutionPhase
+    attr_accessor :game
+
     def initialize(game:)
       @game = game
       @board = {
@@ -14,6 +16,17 @@ module Phases
     end
 
     def run
+      if game.dealer.hand.blackjack?
+        game.boxes.each(&:dealer_blackjack!)
+
+      elsif game.dealer.hand.bust?
+        game.boxes.reject(&:lost?).each(&:dealer_bust!)
+      end
+
+      puts game.boxes.map(&:state)
+
+      puts game.dealer.hand.point_total
+
       @board.merge(@game.boxes.group_by(&:state))
 
       if @game.dealer.hand.point_total.equal?(21)

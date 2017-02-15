@@ -2,6 +2,8 @@
 
 module Phases
   class DealersPhase
+    include PlayState
+
     attr_accessor :game
 
     def initialize(game:)
@@ -19,20 +21,22 @@ module Phases
         LOG.info("Dealer is holding #{game.dealer.hand.description}")
 
         decision = game.dealer.decide
+
         case decision
-        when :stand
+        when STAND
           LOG.info("Dealer has decided to #{'STAND'.colorize(color: :blue)}")
-        when :hit
+        when HIT
           LOG.info("Dealer has decided to #{'HIT'.colorize(color: :red)}")
           deal_an_upcard_to_the_dealer
         end
 
-        case game.dealer.state
-        when :blackjack then game.dealer.win!
-        when :bust then game.dealer.lose!
+        if game.dealer.hand.bust?
+          game.dealer.bust!
+        elsif game.dealer.hand.blackjack?
+          game.dealer.blackjack!
+        elsif game.dealer.hand.twenty_one?
+          game.dealer.twenty_one!
         end
-
-        puts
 
         if game.dealer.hand.bust?
           LOG.info("Dealer has #{game.dealer.state} by going bust")
@@ -47,6 +51,7 @@ module Phases
         end
 
         next unless game.dealer.done?
+
         LOG.info("Dealer is done with their turn holding #{game.dealer.hand.description}")
 
         break

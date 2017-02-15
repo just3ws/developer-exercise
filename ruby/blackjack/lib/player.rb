@@ -3,13 +3,10 @@
 class Player
   attr_accessor :hand, :state, :game, :decisions
 
-  include PlayerStates
-  include TurnStates
-  include Actions
+  include PlayState
 
   def initialize
-    default_state!
-    start_turn!
+    defaults!
     @hand = Hand.new
     @decisions = []
   end
@@ -17,26 +14,16 @@ class Player
   def decide
     decision = if hand.soft? && hand.point_total < 17
                  # Hit on Soft 17
-                 hit
+                 hit!
                elsif hand.point_total <= 11
                  # Hit on 11
-                 hit
-               elsif hand.bust?
-                 turn_done!
-                 bust!
-               elsif hand.blackjack?
-                 turn_done!
-                 blackjack!
-               elsif hand.twenty_one?
-                 turn_done!
-                 twenty_one!
+                 hit!
                else
-                 turn_done!
-                 stand
+                 stand!
                end
 
     decisions.push({
-      decision: decision, turn_turn_done?: turn_turn_done?
+      decision: decision, done?: done?
     }.merge(hand.as_json))
 
     decision

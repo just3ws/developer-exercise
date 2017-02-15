@@ -3,13 +3,10 @@
 class Dealer
   attr_accessor :hand, :state, :game, :decisions
 
-  include PlayerStates
-  include TurnStates
-  include Actions
+  include PlayState
 
   def initialize
-    default_state!
-    start_turn!
+    defaults!
     @hand = Hand.new
     @decisions = []
   end
@@ -17,22 +14,12 @@ class Dealer
   def decide
     decision = if hand.point_total < 17
                  # Stand on 17
-                 hit
-               elsif hand.bust?
-                 turn_done!
-                 bust!
-               elsif hand.blackjack?
-                 turn_done!
-                 dealer_blackjack!
-               elsif hand.twenty_one?
-                 turn_done!
-                 twenty_one!
+                 hit!
                else
-                 turn_done!
-                 stand
+                 stand!
                end
 
-    decisions.push({ decision: decision, turn_done?: turn_done? }.merge(hand.as_json))
+    decisions.push({ decision: decision, done?: done? }.merge(hand.as_json))
 
     decision
   end

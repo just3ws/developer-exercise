@@ -2,10 +2,6 @@
 
 require 'colorize'
 
-# String.colors
-# String.modes
-# String.color_samples
-
 require 'warning'
 Warning.ignore(:fixnum)
 

@@ -134,7 +134,7 @@ RSpec.describe Hand do
       subject.cards << Card.new(name: :king, rank: 10)
       subject.cards << Card.new(name: :ace, rank: [1, 11])
 
-      expect(subject).to be_blackjack
+      expect(subject).to be_twenty_one
     end
 
     it 'nine+ace+ace equals nine+one+eleven' do
@@ -142,7 +142,7 @@ RSpec.describe Hand do
       subject.cards << Card.new(name: :ace, rank: [1, 11])
       subject.cards << Card.new(name: :ace, rank: [1, 11])
 
-      expect(subject).to be_blackjack
+      expect(subject).to be_twenty_one
     end
 
     it 'five+six equals eleven so not blackjack' do
@@ -152,13 +152,13 @@ RSpec.describe Hand do
       expect(subject).to_not be_blackjack
     end
 
-    it 'three+two+nine+seven is blackjack' do
+    it 'three+two+nine+seven is twenty_one' do
       subject.cards << Card.new(name: :three, rank: 3)
       subject.cards << Card.new(name: :two, rank: 2)
       subject.cards << Card.new(name: :nine, rank: 9)
       subject.cards << Card.new(name: :seven, rank: 7)
 
-      expect(subject).to be_blackjack
+      expect(subject).to be_twenty_one
     end
   end
 

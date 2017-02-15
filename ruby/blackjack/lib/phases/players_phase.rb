@@ -2,6 +2,8 @@
 
 module Phases
   class PlayersPhase
+    include PlayState
+
     attr_accessor :game
 
     def initialize(game:)
@@ -25,19 +27,36 @@ module Phases
           LOG.info("Player #{i} holding #{player.hand.description}")
 
           decision = player.decide
+
           case decision
-          when :stand
+          when STAND
             LOG.info("Player #{i} has decided to #{'STAND'.colorize(color: :blue)}")
-          when :hit
+          when HIT
             LOG.info("Player #{i} has decided to #{'HIT'.colorize(color: :red)}")
             deal_upcard_to(player)
-          when :bust, :twenty_one, :blackjack
-            LOG.info("Player #{i} has #{player.state} by hitting #{player.state}")
-          else
-            LOG.info("Player #{i} has #{player.hand.point_total} in hand so their win/lose/draw is #{player.state}")
           end
 
-          next unless player.done? || player.lost?
+          if player.hand.bust?
+            player.bust!
+          elsif player.hand.blackjack?
+            player.blackjack!
+          elsif player.hand.twenty_one?
+            player.twenty_one!
+          end
+
+          if player.hand.bust?
+            LOG.info("Dealer has #{player.state} by going bust")
+          elsif player.hand.blackjack?
+            LOG.info("Dealer has #{player.state} with blackjack")
+          elsif player.hand.twenty_one?
+            LOG.info("Dealer has #{player.state} with twenty_one")
+          elsif player.hand.twenty_one?
+            LOG.info("Dealer has #{player.state} by hitting #{player.hand.point_total}")
+          else
+            LOG.info("Dealer has #{player.hand.point_total} in hand so their win/lose/draw is #{player.state}")
+          end
+
+          next unless player.done?
 
           LOG.info("Player #{i} is done with their turn holding #{player.hand.description}")
 

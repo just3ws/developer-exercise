@@ -47,7 +47,7 @@ class Hand
   end
 
   def blackjack?
-    cards.count == 2 && twenty_one?
+    cards.count == 2 && point_total.equal?(21)
   end
 
   def type
