@@ -2,9 +2,7 @@
 
 module Phases
   class PlayersPhase
-    include PlayState
-    include TurnState
-    include DecisionState
+    include States::DecisionState
 
     attr_accessor :game
 

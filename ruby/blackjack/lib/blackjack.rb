@@ -13,9 +13,9 @@ require 'hand'
 require 'game'
 require 'table'
 
-require 'play_state'
-require 'turn_state'
-require 'decision_state'
+require 'states/play_state'
+require 'states/turn_state'
+require 'states/decision_state'
 
 require 'dealer'
 require 'player'

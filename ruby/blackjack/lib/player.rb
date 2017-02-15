@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
+require 'strategies/hit_on_soft_17_strategy'
+
 class Player
   attr_accessor :hand, :game
 
-  include PlayState
-  include TurnState
-  include DecisionState
+  include States::PlayState
+  include States::TurnState
+  include States::DecisionState
+  include Strategies::HitOnSoft17Strategy
 
   def initialize
     set_initial_play_state!
@@ -13,24 +16,6 @@ class Player
     set_initial_decisions_state!
 
     @hand = Hand.new
-  end
-
-  def decide
-    decision = if hand.soft? && hand.point_total < 17
-                 # Hit on Soft 17
-                 hit!
-               elsif hand.point_total <= 11
-                 # Hit on 11
-                 hit!
-               else
-                 stand!
-               end
-
-    decisions.push({
-      decision: decision, done?: done?
-    }.merge(hand.as_graph))
-
-    decision
   end
 
   def enter(game:)
