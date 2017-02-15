@@ -1,0 +1,31 @@
+---
+engines:
+  bundler-audit:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - ruby
+  fixme:
+    enabled: true
+  flog:
+    enabled: true
+  reek:
+    enabled: true
+  rubocop:
+    enabled: true
+  markdownlint:
+    enabled: true
+  shellcheck:
+    enabled: true
+ratings:
+  paths:
+  - Gemfile.lock
+  - "**.rb"
+exclude_paths:
+- spec/
+- .stash/
+- bin/
+- doc/
+- log/
