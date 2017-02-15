@@ -17,10 +17,8 @@ Blackjack.log = Logger.new(log_file).tap do |log|
   log.progname = "[blackjack-#{ENV.fetch('BLACKJACK_ENV', 'development')}]".blue
 end
 
-if ENV['UGLY_LOG'].nil? || ENV['UGLY_LOG'].empty?
-  Blackjack.log.formatter = proc do |_severity, _datetime, _progname, msg|
-    "#{msg}\n"
-  end
+Blackjack.log.formatter = proc do |_severity, _datetime, _progname, msg|
+  "#{msg}\n"
 end
 
 LOG = Blackjack.log
