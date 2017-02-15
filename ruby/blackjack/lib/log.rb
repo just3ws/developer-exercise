@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'logger'
 require 'colorize'
 
@@ -20,7 +21,7 @@ Blackjack.log.formatter = proc do |_severity, _datetime, _progname, msg|
   "#{msg}\n"
 end
 
-LOG = Blackjack.logger
+LOG = Blackjack.log
 
 def LOG.here(instance, separator: '#')
   debug("#{instance.class.name.colorize(color: :light_blue)}#{separator}#{caller[0][/`.*'/][1..-2].colorize(color: :green)}".colorize(background: :black))
