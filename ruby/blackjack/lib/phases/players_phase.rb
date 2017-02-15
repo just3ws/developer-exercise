@@ -17,24 +17,24 @@ module Phases
       deal_an_upcard_to_the_dealer
       deal_an_upcard_to_each_player
 
-      LOG.info("Dealer upcard is #{game.dealer.upcard.for_humans}")
+      Blackjack.logger.info("Dealer upcard is #{game.dealer.upcard.for_humans}")
 
       game.boxes.each_with_index do |player, i|
         i += 1
-        LOG.alert("Beginning turn for Player #{i}")
+        Blackjack.logger.info { "Beginning turn for Player #{i}" }
 
         22.times do |turn_guard|
           raise 'INCONCEIVABLE!' if turn_guard >= 21
 
-          LOG.info("Player #{i} holding #{player.hand.description}")
+          Blackjack.logger.info { "Player #{i} holding #{player.hand.description}" }
 
           decision = player.decide
 
           case decision
           when STAND
-            LOG.info("Player #{i} has decided to STAND")
+            Blackjack.logger.info("Player #{i} has decided to STAND")
           when HIT
-            LOG.info("Player #{i} has decided to HIT")
+            Blackjack.logger.info("Player #{i} has decided to HIT")
             deal_upcard_to(player)
           end
 
@@ -46,18 +46,18 @@ module Phases
             player.twenty_one!
           end
 
-          LOG.alert("Player #{i} play state is #{player.play_state}")
+          Blackjack.logger.info { "Player #{i} play state is #{player.play_state}" }
 
           next unless player.done?
 
-          LOG.debug("Player #{i} has hand: #{player.hand.description}")
+          Blackjack.logger.debug { "Player #{i} has hand: #{player.hand.description}" }
 
-          LOG.alert("Player #{i} turn is #{player.turn_state}")
+          Blackjack.logger.info { "Player #{i} turn is #{player.turn_state}" }
 
           break
         end
 
-        LOG.info("End of turn for Player #{i}")
+        Blackjack.logger.info("End of turn for Player #{i}")
       end
     end
 

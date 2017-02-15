@@ -10,12 +10,12 @@ module Rules
     end
 
     def suggest
-      LOG.here(self)
+      Blackjack.logger.here(self)
       suggestion = if hit? then :hit if hit?
                    elsif stand? then :stand if stand?
                    else :indeterminate
                    end
-      LOG.debug(suggestion)
+      Blackjack.logger.debug(suggestion)
       suggestion
     end
 

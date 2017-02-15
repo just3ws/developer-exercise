@@ -16,15 +16,15 @@ module Phases
     end
 
     def run
-      LOG.alert('*' * 80, line: :both)
+      Blackjack.logger.info { '*' * 80 }
 
       if game.dealer.hand.bust?
-        LOG.debug("Dealer BUST holding #{game.dealer.hand.description}")
+        Blackjack.logger.debug("Dealer BUST holding #{game.dealer.hand.description}")
 
         # If player hasn't already won then convert to win by dealer bust
         game.boxes.select(&:unknown?).each(&:dealer_bust!)
       elsif game.dealer.hand.blackjack?
-        LOG.debug("Dealer BLACKJACK holding #{game.dealer.hand.description}")
+        Blackjack.logger.debug("Dealer BLACKJACK holding #{game.dealer.hand.description}")
 
         # NOTE: "Blackjack" is an exactly 2 card twenty-one and beats a >2 twenty-one.
 
@@ -34,7 +34,7 @@ module Phases
         # If player has blackjack as well then they are converted to push
         game.boxes.select { |player| player.hand.blackjack? }.each(&:push!)
       else
-        LOG.debug("Dealer SHOWDOWN holding #{game.dealer.hand.description}")
+        Blackjack.logger.debug("Dealer SHOWDOWN holding #{game.dealer.hand.description}")
 
         # Dealer showdown
         remaining_players = game.boxes.reject do |player|
@@ -52,7 +52,7 @@ module Phases
         end
       end
 
-      LOG.debug('-' * 80)
+      Blackjack.logger.debug('-' * 80)
 
       game.boxes.each_with_index do |player, i|
         i += 1
@@ -66,10 +66,10 @@ module Phases
                 else
                   raise 'Unknown final play state'
                 end
-        LOG.debug("Player #{i} #{final} by #{player.play_state.to_s.sub(/_/, ' ')} with #{player.hand.description}")
+        Blackjack.logger.debug("Player #{i} #{final} by #{player.play_state.to_s.sub(/_/, ' ')} with #{player.hand.description}")
       end
 
-      LOG.alert('*' * 80, line: :both)
+      Blackjack.logger.info { '*' * 80 }
     end
   end
 end

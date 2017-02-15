@@ -11,7 +11,6 @@ module Rules
     end
 
     def suggest
-      LOG.here(self)
       suggestion = if hit? then :hit if hit?
                    elsif stand? then :stand if stand?
                    else :indeterminate

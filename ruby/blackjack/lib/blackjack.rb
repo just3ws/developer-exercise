@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
-require 'log'
+module Blackjack
+end
+
+require 'config/logging'
 
 require 'card'
 require 'deck'
