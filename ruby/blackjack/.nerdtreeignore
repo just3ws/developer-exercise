@@ -1,0 +1,10 @@
+bin
+log
+tmp
+README.md
+doc
+Gemfile
+Gemfile.lock
+Guardfile
+Rakefile
+blackjack.gemspec
