@@ -8,7 +8,8 @@ module Blackjack
   end
 end
 
-log_file = open("log/#{ENV.fetch('BLACKJACK_ENV', 'development')}.log", File::WRONLY | File::APPEND | File::CREAT).tap do |f|
+log_file_name = "log/#{ENV.fetch('BLACKJACK_ENV', 'development')}.log"
+log_file = open(log_file_name, File::WRONLY | File::APPEND | File::CREAT).tap do |f|
   f.sync = true
 end
 
