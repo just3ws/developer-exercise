@@ -9,16 +9,18 @@ module Blackjack
   end
 end
 
-log_file = open("log/#{ENV.fetch('RUBY_ENV', 'development')}.log", File::WRONLY | File::APPEND | File::CREAT).tap do |f|
+log_file = open("log/#{ENV.fetch('BLACKJACK_ENV', 'development')}.log", File::WRONLY | File::APPEND | File::CREAT).tap do |f|
   f.sync = true
 end
 
 Blackjack.log = Logger.new(log_file).tap do |log|
-  log.progname = '[BLACKJACK]'.blue
+  log.progname = "[blackjack-#{ENV.fetch('BLACKJACK_ENV', 'development')}]".blue
 end
 
-Blackjack.log.formatter = proc do |_severity, _datetime, _progname, msg|
-  "#{msg}\n"
+if ENV['UGLY_LOG'].nil? || ENV['UGLY_LOG'].empty?
+  Blackjack.log.formatter = proc do |_severity, _datetime, _progname, msg|
+    "#{msg}\n"
+  end
 end
 
 LOG = Blackjack.log

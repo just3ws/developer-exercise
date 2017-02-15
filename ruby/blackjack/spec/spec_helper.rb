@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+ENV['BLACKJACK_ENV'] ||= 'test'
+
 require 'colorize'
 
 require 'warning'
