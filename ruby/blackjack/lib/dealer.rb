@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Dealer
-  attr_accessor :hand, :state, :game, :decisions
+  attr_accessor :hand, :game, :decisions, :turn_state, :play_state
 
   include PlayState
 

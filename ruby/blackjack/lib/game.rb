@@ -8,10 +8,12 @@ class Game
   end
 
   def run
-    LOG.info("Beginning game with #{game.boxes.count} player(s)")
+    LOG.alert("Beginning game with #{game.boxes.count} player(s)", line: :before)
+
     Phases::PlayersPhase.new(game: game).run
     Phases::DealersPhase.new(game: game).run
     Phases::ResolutionPhase.new(game: game).run
-    LOG.info("End of game with #{game.boxes.count} player(s)")
+
+    LOG.alert("End of game with #{game.boxes.count} player(s)", line: :after)
   end
 end

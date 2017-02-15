@@ -13,7 +13,7 @@ module Phases
     def run
       deal_an_upcard_to_the_dealer
 
-      LOG.info('Beginning turn for Dealer')
+      LOG.alert('Beginning turn for Dealer')
 
       22.times do |turn_guard|
         raise 'INCONCEIVABLE!' if turn_guard >= 21
@@ -38,26 +38,16 @@ module Phases
           game.dealer.twenty_one!
         end
 
-        if game.dealer.hand.bust?
-          LOG.info("Dealer has #{game.dealer.state} by going bust")
-        elsif game.dealer.hand.blackjack?
-          LOG.info("Dealer has #{game.dealer.state} with blackjack")
-        elsif game.dealer.hand.twenty_one?
-          LOG.info("Dealer has #{game.dealer.state} with twenty_one")
-        elsif game.dealer.hand.twenty_one?
-          LOG.info("Dealer has #{game.dealer.state} by hitting #{game.dealer.hand.point_total}")
-        else
-          LOG.info("Dealer has #{game.dealer.hand.point_total} in hand so their win/lose/draw is #{game.dealer.state}")
-        end
+        LOG.info("Dealer state is #{game.dealer.play_state}")
 
         next unless game.dealer.done?
 
-        LOG.info("Dealer is done with their turn holding #{game.dealer.hand.description}")
+        LOG.debug("Dealer has hand: #{game.dealer.hand.description}")
+        LOG.alert("Dealer turn is #{game.dealer.done}")
 
         break
       end
 
-      LOG.graph_for(game.dealer)
       LOG.info('End of turn for Dealer')
     end
 

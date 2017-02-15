@@ -19,7 +19,7 @@ module Phases
 
       game.boxes.each_with_index do |player, i|
         i += 1
-        LOG.info("Beginning turn for Player #{i}")
+        LOG.alert("Beginning turn for Player #{i}")
 
         22.times do |turn_guard|
           raise 'INCONCEIVABLE!' if turn_guard >= 21
@@ -44,26 +44,14 @@ module Phases
             player.twenty_one!
           end
 
-          if player.hand.bust?
-            LOG.info("Dealer has #{player.state} by going bust")
-          elsif player.hand.blackjack?
-            LOG.info("Dealer has #{player.state} with blackjack")
-          elsif player.hand.twenty_one?
-            LOG.info("Dealer has #{player.state} with twenty_one")
-          elsif player.hand.twenty_one?
-            LOG.info("Dealer has #{player.state} by hitting #{player.hand.point_total}")
-          else
-            LOG.info("Dealer has #{player.hand.point_total} in hand so their win/lose/draw is #{player.state}")
-          end
+          LOG.alert("Player #{i} play state is #{player.play_state}")
 
           next unless player.done?
 
-          LOG.info("Player #{i} is done with their turn holding #{player.hand.description}")
+          LOG.alert("Player #{i} is done: #{player.hand.description}")
 
           break
         end
-
-        LOG.graph_for(player)
 
         LOG.info("End of turn for Player #{i}")
       end

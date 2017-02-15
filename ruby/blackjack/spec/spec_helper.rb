@@ -29,6 +29,21 @@ def LOG.graph_for(graphable)
   debug(graphable.as_json.to_s.colorize(color: :yellow).to_s)
 end
 
+def LOG.alert(msg, line: nil)
+  colorized = msg.colorize(color: :red, background: :white)
+  formatted = case line
+              when :before
+                "\n#{colorized}"
+              when :after
+                "#{colorized}\n"
+              when :both
+                "\n#{colorized}\n"
+              else
+                colorized
+              end
+  info(formatted)
+end
+
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true

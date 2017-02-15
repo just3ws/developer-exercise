@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Player
-  attr_accessor :hand, :state, :game, :decisions
+  attr_accessor :hand, :game, :decisions, :turn_state, :play_state
 
   include PlayState
 
@@ -47,7 +47,7 @@ class Player
 
     {
       player: {
-        state: state,
+        play_state: play_state,
         decisions: decisions
       }.merge(hand.as_json)
         .merge(dealer_upcard)

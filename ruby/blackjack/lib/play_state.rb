@@ -2,7 +2,7 @@
 
 module PlayState
   # Player/Dealer
-  DEFAULT_STATE = :unknown
+  UNKNOWN_PLAY_STATE = :unknown
   BLACKJACK = :blackjack
   TWENTY_ONE = :twenty_one
   HIGH_HAND = :high_hand
@@ -25,85 +25,85 @@ module PlayState
 
   # Defaults
   def defaults!
-    @turn = CONTINUE
-    @state = DEFAULT_STATE
+    @turn_state = CONTINUE
+    @play_state = UNKNOWN_PLAY_STATE
   end
 
   # Turn
   def done!
-    @turn = DONE
+    @turn_state = DONE
   end
 
   def done?
-    @turn.equal?(DONE)
+    @turn_state.equal?(DONE)
   end
 
   def continue?
-    @turn.equal?(CONTINUE)
+    @turn_state.equal?(CONTINUE)
   end
 
   # Decisons
   def hit!
-    @action = :hit
+    @decision_state = :hit
   end
 
   def stand!
     done!
-    @action = :stand
+    @decision_state = :stand
   end
 
   # Player/Dealer
   def unknown?
-    @state.equal?(DEFAULT_STATES)
+    @play_state.equal?(UNKNOWN_PLAY_STATE)
   end
 
   def blackjack!
     done!
-    @state = BLACKJACK
+    @play_state = BLACKJACK
   end
 
   def twenty_one!
     done!
-    @state = TWENTY_ONE
+    @play_state = TWENTY_ONE
   end
 
   def high_hand!
-    @state = HIGH_HAND
+    @play_state = HIGH_HAND
   end
 
   def low_hand!
-    @state = LOW_HAND
+    @play_state = LOW_HAND
   end
 
   def dealer_blackjack!
     done!
-    @state = DEALER_BLACKJACK
+    @play_state = DEALER_BLACKJACK
   end
 
   def dealer_bust!
     done!
-    @state = DEALER_BUST
+    @play_state = DEALER_BUST
   end
 
   def bust!
     done!
-    @state = BUST
+    @play_state = BUST
   end
 
   def push!
-    @state = PUSH
+    @play_state = PUSH
   end
 
   # Final States
   def won?
-    WIN_STATES.include?(@state)
+    WIN_STATES.include?(@play_state)
   end
 
   def lost?
-    LOSS_STATES.include?(@state)
+    LOSS_STATES.include?(@play_state)
   end
 
   def tie?
-    TIE_STATES.include?(@state)
+    TIE_STATES.include?(@play_state)
   end
 end

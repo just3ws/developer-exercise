@@ -23,11 +23,11 @@ module Phases
         game.boxes.reject(&:lost?).each(&:dealer_bust!)
       end
 
-      puts game.boxes.map(&:state)
+      puts game.boxes.map(&:play_state)
 
       puts game.dealer.hand.point_total
 
-      @board.merge(@game.boxes.group_by(&:state))
+      @board.merge(@game.boxes.group_by(&:play_state))
 
       if @game.dealer.hand.point_total.equal?(21)
         handle_dealer_twenty_one
@@ -44,9 +44,9 @@ module Phases
       LOG.ap(@game.dealer.hand.twenty_one?)
       LOG.ap(@game.dealer.hand.bust?)
       LOG.ap(@game.dealer.hand.point_total)
-      LOG.ap(@losers.map { |player| [player.state, player.hand.point_total] })
-      LOG.ap(@winners.map { |player| [player.state, player.hand.point_total] })
-      LOG.ap(@unknowns.map { |player| [player.state, player.hand.point_total] })
+      LOG.ap(@losers.map { |player| [player.play_state, player.hand.point_total] })
+      LOG.ap(@winners.map { |player| [player.play_state, player.hand.point_total] })
+      LOG.ap(@unknowns.map { |player| [player.play_state, player.hand.point_total] })
     end
 
     def dealer_blackjack?; end
