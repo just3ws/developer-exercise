@@ -9,7 +9,6 @@ group :development, :test do
   gem 'byebug'
   gem 'fuubar', require: false
   gem 'guard-rspec', require: false
-  gem 'pry'
   gem 'pry-byebug'
   gem 'rubocop', require: false
   gem 'ruby-lint', require: false

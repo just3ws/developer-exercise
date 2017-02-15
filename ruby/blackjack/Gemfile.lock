@@ -96,7 +96,7 @@ DEPENDENCIES
   colorize (~> 0.8.1)
   fuubar
   guard-rspec
-  pry
+  pry (~> 0.10.4)
   pry-byebug
   rspec (~> 3.5.0)
   rubocop
