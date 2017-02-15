@@ -3,3 +3,9 @@
 source 'https://rubygems.org'
 
 gemspec
+
+group :development do
+  gem 'ruby-lint', require: false
+  gem 'rubocop', require: false
+  gem 'guard-rspec', require: false
+end
