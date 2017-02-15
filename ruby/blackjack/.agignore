@@ -22,6 +22,11 @@ Gemfile.lock
 /doc/
 Rakefile
 Gemfile
-blackjack.gemspect
+*.gemspec
 Guardfile
 /spec/spec_helper.rb
+/spec/support/**/*
+/bin/
+/*.md
+/**/*.md
+/.github
