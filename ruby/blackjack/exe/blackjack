@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+Signal.trap('INT') { exit }
+Signal.trap('SIGINT') { exit }
+Signal.trap('TERM') { exit }
+
+begin
+
+  require 'bundler/setup'
+
+  require 'blackjack'
+
+  print "\e[H\e[2J"
+
+  puts Blackjack::Graphics::TITLE
+
+  name = Questions::WhatIsYourNameQuestion.ask.then_wait_for.answer
+
+  Table.new.tap do |table|
+    Dealer.new.take_ownership_of(game: table)
+
+    VirtualPlayer.new.enter(game: table)
+    HumanPlayer.new(name: name).enter(game: table)
+    VirtualPlayer.new.enter(game: table)
+  end.run
+
+ensure
+
+  puts "\n\e[33m#{Blackjack::QUOTES.sample}\e[0m"
+
+end
